@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" class="login-html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style.css"> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>QuickTable | Welcome back</title>
+</head>
+<body class="login-body">
+    <header class="index-header">
+        <h1 class="login-h1">Quick<img src="assets/table.svg" class="table-icon" alt="">able</h1>
+        <div class="logins">
+            <button class="log">Login</button>
+            <button class="log">Register</button>
+        </div>
+    </header>
+    <section class="login-main">
+        <main class="flip-card">
+            <div class="logins-wrapper flip-card-inner">
+                <div class="login-container flip-card-front" id="login">
+                    <div class="top-login">
+                        <h1 class="login-h1" style="color: white;">Quick<img src="assets/table.svg" class="table-icon" alt="">able</h1>
+                    </div>
+                    <h2 class="login-title">Login</h2>
+                    <form method="post" class="login-form">
+                        <div class="input-container">
+                            <label for="email" class="input-label">Email</label>
+                            <input type="email" name="email" id="email" class="input-field" required>
+                        </div>
+                        <div class="input-container">
+                            <label for="password" class="input-label">Password</label>
+                            <input type="password" name="password" id="password" class="input-field" required>
+                        </div>
+                        <br>
+                        <a href="" class="forgot">Forgot password ?</a>
+                        <div class="login-btns">
+                            <button type="submit" class="login-button">Login</button>
+                        </div>
+                        <a class="forgot" onclick="switchLogin()">Don't have an account ? Register </a>
+                    </form>
+                </div>
+                <div class="register-container flip-card-back" id="register">
+                    <div class="top-login">
+                        <h1 class="login-h1" style="color: white;">Quick<img src="assets/table.svg" class="table-icon" alt="">able</h1>
+                    </div>
+                    <h2 class="login-title">Register</h2>
+                    <form method="post" class="register-form">
+                        <div class="input-container">
+                            <label for="name" class="input-label">Full name</label>
+                            <input type="text" name="name" id="name" class="input-field" required>
+                        </div>
+                        <div class="input-container">
+                            <label for="email" class="input-label">Email</label>
+                            <input type="email" name="email" id="email" class="input-field" required>
+                        </div>
+                        <div class="passwords">
+                            <div class="input-container">
+                                <label for="password" class="input-label">Password</label>
+                                <input type="password" name="password" id="password" class="input-field" required>
+                            </div>
+                            <div class="input-container">
+                                <label for="password" class="input-label">Confirm password</label>
+                                <input type="password" name="password" id="password" class="input-field" required>
+                            </div>
+                        </div>
+                        <div class="login-btns">
+                            <button type="submit" class="login-button">Register</button>
+                        </div>
+                        <a class="forgot" onclick="switchLogin()">Already have an account ? Login </a>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <div class="next-text">
+            <h1 id="login-animation"></h1>
+        </div>
+    </section>
+    <div class="alert-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Title</h2>
+                <div class="modal-close" onclick="this.parentNode.parentNode.parentNode.style.display = 'none'">
+                    <i class="bi bi-x-lg"></i>
+                </div> 
+            </div>
+            <div class="modal-body">
+                <p class="modal-description">Description</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-buttons">Ok</button>
+                <button class="modal-buttons">Cancel</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="js/script.js" defer></script>
