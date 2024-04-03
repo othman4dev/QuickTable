@@ -11,26 +11,24 @@ class PostsController extends Controller
     public static function allPosts() {
         if (session('user') == null) {
             $posts = DB::table('posts')
-                ->select('posts.*', 'users.*', 'categories.*', 'reservation.*', 'posts.id as post_id', 'reservation.id as reserved')
+                ->select('posts.*', 'users.*', 'reservation.*', 'posts.id as post_id', 'reservation.id as reserved')
                 ->leftJoin('users', 'users.id', '=', 'posts.business_id')
-                ->leftJoin('categories', 'categories.id', '=', 'posts.category_id')
+                ->leftJoin('bussiness', 'bussiness.id', '=', 'posts.business_id')
                 ->leftJoin('reservation', function ($join) {
-                    $join->on('reservation.post_id', '=', 'posts.id')
+                    $join->on('reservation.business_id', '=', 'posts.id')
                         ->where('reservation.user_id', '=', 0);
                 })
-                ->where('approved', 1)
                 ->where('deleted', 0)
                 ->simplePaginate(5);
         } else {
             $posts = DB::table('posts')
-            ->select('posts.*', 'users.*', 'categories.*', 'reservation.*', 'posts.id as post_id', 'reservation.id as reserved')
+            ->select('posts.*', 'users.*', 'reservation.*' ,'business.*', 'posts.id as post_id', 'reservation.id as reserved')
             ->leftJoin('users', 'users.id', '=', 'posts.business_id')
-            ->leftJoin('categories', 'categories.id', '=', 'posts.category_id')
+            ->leftJoin('business', 'business.id', '=', 'posts.business_id')
             ->leftJoin('reservation', function ($join) {
-                $join->on('reservation.post_id', '=', 'posts.id')
+                $join->on('reservation.business_id', '=', 'posts.id')
                     ->where('reservation.user_id', '=', session('user')->id);
             })
-            ->where('approved', 1)
             ->where('deleted', 0)
             ->simplePaginate(5);
         }
@@ -108,7 +106,6 @@ class PostsController extends Controller
                     ->where('reservation.user_id', '=', 0);
             })
             ->where('posts.id', $id)
-            ->where('approved', 1)
             ->where('deleted', 0)
             ->first();
         return redirect('/post')->with(compact('post'));

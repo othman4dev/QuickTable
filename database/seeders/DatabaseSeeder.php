@@ -16,27 +16,29 @@ class DatabaseSeeder extends Seeder
     {
         $faker = Faker::create();
         for ($i = 0; $i < 10; $i++) {
-            DB::table('categories')->insert([
-                'category' => $faker->word(),
+            DB::table('posts')->insert([
+    	        'title' => $faker->sentence(),
+                'description' => $faker->paragraph(),
+                'image' => '../uploads/defaultpost.jpg',
+                'deleted' => $faker->boolean(),
+                'business_id' => 1,
+                'created_at' => $faker->dateTime(),
+                'updated_at' => $faker->dateTime(),
             ]);
         }
-
-        // for ($i = 0; $i < 10; $i++) {
-        //     $places = $faker->randomNumber(4);
-        //     DB::table('events')->insert([
-        //         'title' => $faker->sentence,
-        //         'description' => $faker->paragraph,
-        //         'location' => $faker->address,
-        //         'image' => $faker->imageUrl(),
-        //         'places' => $places,
-        //         'spots' => $places,
-        //         'date' => $faker->date(),
-        //         'time' => $faker->time(),
-        //         'price' => $faker->randomFloat(2, 1, 100),
-        //         'category_id' => $faker->numberBetween(1, 10),
-        //         'user_id' => 3,
-        //     ]);
-        // }
+        for ($i = 0; $i < 10; $i++) {
+            DB::table('business')->insert([
+                'name' => $faker->company(),
+                'business_type' => 'Restaurant',
+                'address' => $faker->address(),
+                'phone' => $faker->phoneNumber(),
+                'email' => $faker->email(),
+                'description' => $faker->paragraph(),
+                'background_image' => '../uploads/defaultbusiness.jpg',
+                'status' => $faker->boolean(),
+                'created_at' => $faker->dateTime(),
+            ]);
+        }
         DB::table('users')->insert([
             'firstname' => 'Othman',
             'lastname' => ' Admin',

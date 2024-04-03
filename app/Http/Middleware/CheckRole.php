@@ -9,10 +9,9 @@ class CheckRole
 {
     public function handle(Request $request, Closure $next, $role)
     {
-        $user_role = session('user')->role;
         if (! session('user')) {
             return redirect('/login');
-        } else if ( $user_role !== $role) {
+        } else if ( session('user')->role !== $role) {
             return redirect('/404');
         }
         return $next($request);

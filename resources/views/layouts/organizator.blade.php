@@ -14,6 +14,7 @@
     <script src="https://cdn.tiny.cloud/1/w5o6851coln6uxz4eqge6bq0qi2ez0n5zwyprq67sybzjlf9/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <title>QuickTable | Reserve  It Now</title>
 </head>
 <body>
@@ -54,7 +55,7 @@
                 <i class="bi bi-list"></i>
             </div>
             <div class="main-side" id="main-side">
-                <div class="side-option" onclick="window.location.href = '/myevents'">
+                <div class="side-option" onclick="window.location.href = '/myposts'">
                     <i class="bi bi-shop-window" style="font-size: 20px;"></i>
                     <span>My Events</span>
                 </div>
@@ -117,3 +118,4 @@
 </body>
 </html>
 <script src="js/script.js" defer></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>

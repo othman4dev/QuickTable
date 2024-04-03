@@ -13,7 +13,6 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('image');
-            $table->integer('approved')->default(0);
             $table->integer('deleted')->default(0);
             $table->unsignedBigInteger('business_id');
             $table->foreign('business_id')->references('id')->on('business');

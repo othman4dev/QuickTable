@@ -70,9 +70,9 @@ class AdminController extends Controller
     }
     public static function posts() {
         $posts = DB::table('posts')
-            ->select('posts.*', 'users.*', 'categories.*', 'posts.id as event_id')
-            ->leftJoin('users', 'users.id', '=', 'posts.user_id')
-            ->leftJoin('categories', 'categories.id', '=', 'posts.category_id')
+            ->select('posts.*', 'users.*', 'business.*' , 'posts.id as post_id')
+            ->leftJoin('users', 'users.id', '=', 'posts.business_id')
+            ->leftJoin('business', 'business.id', '=', 'posts.business_id')
             ->where('deleted', 0)
             ->get();
         return view('admin.posts', ['posts' => $posts]);

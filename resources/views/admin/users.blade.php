@@ -2,6 +2,9 @@
 @section('content')
 <section class="all">
     <section class="table-events">
+        <section class="table-heading">
+            <h1>Users</h1>
+        </section>
         <table id="myTable" class="display">
             <thead>
                 <tr>
@@ -29,8 +32,8 @@
                     </td>
                     <td>
                         @if (@$user->role == 'User')
-                            <a href="/upgrade/{{ $user->id }}" class="action-btn">Turn Organizator <i class="bi bi-person-check-fill"></i></a>
-                        @elseif (@$user->role == 'Organizator')
+                            <a href="/upgrade/{{ $user->id }}" class="action-btn">Turn Owner <i class="bi bi-person-check-fill"></i></a>
+                        @elseif (@$user->role == 'Owner')
                             <a href="/downgrade/{{ $user->id }}" class="action-btn">Turn User <i class="bi bi-person-dash-fill"></i></a>
                         @endif
                         @if (@$user->banned == 0 && @$user->role !== 'Admin')
@@ -47,8 +50,12 @@
     </section>
 </section>
 <script>
-    $(document).ready( function () {
-        $('#myTable').DataTable();
+    $(document).ready(function() {
+    $('#myTable').DataTable({
+        "columnDefs": [
+            { "width": "15%", "targets": 5 }  // Third column width as 50%
+        ]
     });
+});
 </script>
 @endsection

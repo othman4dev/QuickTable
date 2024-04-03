@@ -79,7 +79,7 @@
                     <div class="nearby">
                         <h1>Top Events</h1>
                     </div>
-                    @if (count($myevents) == 0)
+                    @if (count($myposts) == 0)
 
                         <div class="nearby-option">
                             <div class="no-events-nearby">
@@ -89,7 +89,7 @@
                         </div>
                         
                     @endif
-                    @foreach ($myevents as $post)
+                    @foreach ($myposts as $post)
                     <div class="nearby-option" onclick="window.location.href='/getEvent/{{ $post->event_id}}'">
                         <div class="nearby-option-logo">
                             {{ $post->spots }}
@@ -106,7 +106,7 @@
                     @endforeach
                 </section>
                 <section class="posts">
-                    @foreach ($myevents as $event)
+                    @foreach ($myposts as $post)
                     <div class="post">
                         <div class="post-header">
                             <div class="post-profile">
@@ -114,32 +114,32 @@
                                 </div>
                                 <div class="post-profile-texts">
                                     <span class="post-profile-name">{{ session('user')->firstname }} {{ session('user')->lastname }}</span>
-                                    <span class="post-profile-description">{{ $event->location }}, {{ $event->created_at }}</span>
+                                    <span class="post-profile-description">{{ $post->location }}, {{ $post->created_at }}</span>
                                 </div>
                             </div>
                             <div class="post-buttons">
                                 <button class="post-btns-btn" disabled>
-                                    @if ($event->approved == 0)
+                                    @if ($post->approved == 0)
                                         Pending <i class="bi bi-circle" style="font-size: 20px"></i>
-                                    @elseif ($event->approved == 1)
+                                    @elseif ($post->approved == 1)
                                         Approved <i class="bi bi-check-circle-fill" style="font-size: 20px"></i>
-                                    @elseif ($event->approved == 2)
+                                    @elseif ($post->approved == 2)
                                         Rejected <i class="bi bi-exclamation-circle-fill" style="font-size: 20px"></i>
                                     @endif
                                 </button>
-                                <button onclick="window.location.href='/edit/{{ $event->event_id}}'" class="post-btns-btn">Edit <i class="bi bi-pencil-square"></i></button>
-                                <button onclick="window.location.href='/deleteEvent/{{ $event->event_id}}'" class="post-btns-btn">Delete <i class="bi bi-trash3-fill"></i></button>
+                                <button onclick="window.location.href='/edit/{{ $post->post_id}}'" class="post-btns-btn">Edit <i class="bi bi-pencil-square"></i></button>
+                                <button onclick="window.location.href='/deletepost/{{ $post->post_id}}'" class="post-btns-btn">Delete <i class="bi bi-trash3-fill"></i></button>
                             </div>
                         </div>
                         <div class="post-body">
-                            <div class="post-image" style="background-image: url('../{{ $event->image }}')">
+                            <div class="post-image" style="background-image: url('../{{ $post->image }}')">
                                 
                             </div>
                             <div class="post-side">
-                                <h3 class="post-title">{{ $event->title }}</h3>
-                                <p class="cateogory-event">{{ $event->category }}</p>
+                                <h3 class="post-title">{{ $post->title }}</h3>
+                                <p class="cateogory-post">{{ $post->category }}</p>
                                 <p class="post-description">
-                                    {!! $event->description !!}
+                                    {!! $post->description !!}
                                 </p>
                             </div>
                         </div>
@@ -149,10 +149,10 @@
                                     Price :
                                 </p>
                                 <span>
-                                    @if ($event->price == 0)
+                                    @if ($post->price == 0)
                                         Free
                                     @else
-                                        {{ $event->price }} $
+                                        {{ $post->price }} $
                                     @endif
                                     </span>
                             </div>
@@ -160,26 +160,26 @@
                                 <p class="post-likes-desc">
                                     Empty Spots :
                                 </p>
-                                <span>{{ $event->spots }}</span>
+                                <span>{{ $post->spots }}</span>
                             </div>
                             <div class="post-likes">
                                 <p class="post-likes-desc">
                                     Total Spots :
                                 </p>
-                                <span>{{ $event->places }}</span>
+                                <span>{{ $post->places }}</span>
                             </div>
                             <div class="post-likes">
                                 <p class="post-likes-desc">
-                                    {{ number_format(100 - ($event->spots * 100 / $event->places), 2) }}% Full
+                                    {{ number_format(100 - ($post->spots * 100 / $post->places), 2) }}% Full
                                 </p>
                                 <div class="slider-per">
-                                    <div class="per" style="width: {{ 100 - ( $event->spots * 100 / $event->places ) }}%"></div>
+                                    <div class="per" style="width: {{ 100 - ( $post->spots * 100 / $post->places ) }}%"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     @endforeach
-                    @if (count($myevents) == 0)
+                    @if (count($myposts) == 0)
 
                         <div class="post">
                             <div class="no-events">

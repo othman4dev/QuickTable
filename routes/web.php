@@ -4,7 +4,7 @@ use App\Http\Controllers\EmailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\EventsController;
+use App\Http\Controllers\PostsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OrganizatorController;
 
@@ -23,11 +23,11 @@ use App\Http\Controllers\OrganizatorController;
 Route::middleware(['role:Admin'])->group(function() {
     Route::get('/stats', [AdminController::class, 'stats']);
     Route::get('/users' ,[AdminController::class, 'users']);
-    Route::get('/allEvents' , [AdminController::class, 'events']);
+    Route::get('/allposts' , [AdminController::class, 'posts']);
     Route::get('/categories' ,[AdminController::class , 'categories']);
-    Route::get('/events/delete/{id}', [EventsController::class, 'delete'])->name('delete');
-    Route::get('/events/approve/{id}', [EventsController::class, 'approve'])->name('approve');
-    Route::get('/events/reject/{id}', [EventsController::class, 'reject'])->name('reject');
+    Route::get('/posts/delete/{id}', [PostsController::class, 'delete'])->name('delete');
+    Route::get('/posts/approve/{id}', [PostsController::class, 'approve'])->name('approve');
+    Route::get('/posts/reject/{id}', [PostsController::class, 'reject'])->name('reject');
     Route::get('/deleteCat/{id}', [AdminController::class, 'deleteCat'])->name('deleteCat');
     Route::post('/addCat', [AdminController::class, 'addCat']);
     Route::post('/editCat', [AdminController::class, 'editCat']);
@@ -36,14 +36,14 @@ Route::middleware(['role:Admin'])->group(function() {
 });
 //ORGANIZATOR ROLE
 Route::middleware(['role:Organizator'])->group(function () {
-    Route::get('/myevents', [OrganizatorController::class, 'getMyEvents']);
+    Route::get('/myposts', [OrganizatorController::class, 'getMyposts']);
     Route::get('/add', [OrganizatorController::class, 'addPage']);
     Route::get('/money' , [OrganizatorController::class, 'money']);
-    Route::post('/addEvent', [OrganizatorController::class, 'addEvent']);
+    Route::post('/addPost', [OrganizatorController::class, 'addPost']);
     Route::get('/profile' , [OrganizatorController::class, 'profile']);
     Route::get('/edit/{id}', [OrganizatorController::class, 'edit'])->name('edit');
-    Route::post('/editEvent' , [OrganizatorController::class, 'editEvent']);
-    Route::get('/deleteEvent/{id}', [OrganizatorController::class, 'deleteEvent'])->name('deleteEvent');
+    Route::post('/editPost' , [OrganizatorController::class, 'editPost']);
+    Route::get('/deletePost/{id}', [OrganizatorController::class, 'deletePost'])->name('deletePost');
     Route::get('/reservations' , [OrganizatorController::class, 'reservations']);
     Route::get('/approveReservation/{id}', [OrganizatorController::class, 'approveReservation'])->name('approveReservation');
     Route::get('/rejectReservation/{id}', [OrganizatorController::class, 'rejectReservation'])->name('rejectReservation');
@@ -52,9 +52,9 @@ Route::middleware(['role:Organizator'])->group(function () {
 Route::middleware(['role:User'])->group(function () {
     Route::get('/myReservations', [UserController::class, 'myreservations']);
     Route::get('/ticket/{id}', [UserController::class, 'sendTicket'])->name('sendTicket');
-    Route::get('/reserve/{id}', [EventsController::class, 'reserve'])->name('reserve');
-    Route::get('/cancel/{id}', [EventsController::class, 'cancel'])->name('cancel');
-    Route::get('/events' , [UserController::class, 'dashboard']);
+    Route::get('/reserve/{id}', [PostsController::class, 'reserve'])->name('reserve');
+    Route::get('/cancel/{id}', [PostsController::class, 'cancel'])->name('cancel');
+    Route::get('/posts' , [UserController::class, 'dashboard']);
 });
 //GUEST ROLE
 Route::middleware(['norole'])->group(function () {
@@ -82,9 +82,9 @@ Route::middleware(['norole'])->group(function () {
 // All Roles
 Route::middleware(['user'])->group(function () {
     Route::get('/logout', [LoginController::class, 'logout']);
-    Route::get('/getEvent/{id}', [EventsController::class, 'getEvent'])->name('event');
-    Route::get('/event' , [EventsController::class , 'event']);
-    Route::get('/search/{search}', [EventsController::class, 'search'])->name('search');
+    Route::get('/getPost/{id}', [PostsController::class, 'getPost'])->name('post');
+    Route::get('/post' , [PostsController::class , 'post']);
+    Route::get('/search/{search}', [PostsController::class, 'search'])->name('search');
     
     Route::post('/sendMail', [EmailController::class, 'sendMail']);
 });
@@ -96,7 +96,7 @@ Route::get('/', function () {
     } else if ( session('user')->role == 'Organizator') {
         return redirect('/profile');
     } else if ( session('user')->role == 'User') {
-        $posts = EventsController::allPosts();
+        $posts = PostsController::allPosts();
         return view('user.index', ['posts' => $posts]);
     }
 });

@@ -26,16 +26,16 @@
                 </div>
             @endif
             @foreach ($posts as $post)
-            <div class="nearby-option" onclick="window.location.href='/getEvent/{{ $post->event_id}}'">
-                <div class="nearby-option-logo">
-                    {{ $post->spots }}
+            <div class="nearby-option" onclick="window.location.href='/getEvent/{{ $post->post_id}}'">
+                <div class="nearby-option-logo" style="background-image: url('{{ $post->background_image }}');background-size:cover;background-position:center;">
+                    
                 </div>
                 <div class="nearby-option-texts">
                     <h3 class="nearby-option-title">{{ Illuminate\Support\Str::limit($post->title, 20) }}</h3>
-                    <p class="nearby-option-description">{{ $post->category }}, {{ Illuminate\Support\Str::limit($post->location, 10) }}</p>
+                    <p class="nearby-option-description"></p>
                 </div>
                 <div class="nearby-option-logo">
-                    {{ floor($post->price) }}$
+                    {{ floor($post->id) }}$
                 </div>
                 
             </div>
@@ -43,25 +43,25 @@
         </section>
         <section class="posts">
             @foreach ( $posts as $post)
-            <div class="post">
+            <div class="post" data-aos="fade-up">
                 <div class="post-header">
                     <div class="post-profile">
                         <div class="post-profile-image">
                         </div>
                         <div class="post-profile-texts">
-                            <span class="post-profile-name">{{ @$post->firstname }} {{ @$post->lastname }}</span>
-                            <span class="post-profile-description">{{ $post->location }}, {{ $post->created_at }}</span>
+                            <span class="post-profile-name">{{ @$post->name }}</span>
+                            <span class="post-profile-description">{{ \Carbon\Carbon::parse($post->created_at)->format('l jS F Y h:i A') }}</span>
                         </div>
                     </div>
                     <div class="post-buttons">
                         @if (@$post->reserved !== null)
                             <button class="post-btns-btn" disabled> Reserved <i class="bi bi-check"></i></button>
                         @elseif ( @$post->reserved == null) 
-                            <button class="post-btns-btn" onclick="reserveAjax( {{ $post->event_id }} , this)"> Reserve <i class="bi bi-person-check-fill"></i></button>
+                            <button class="post-btns-btn" onclick="reserveAjax( {{ $post->post_id }} , this)"> Reserve <i class="bi bi-person-check-fill"></i></button>
                         @endif
                         <button class="post-btns-btn" onclick="showMore(this.nextElementSibling)">More <i class="bi bi-three-dots-vertical button-icons"></i></button>
                         <div class="more-dropdown">
-                            <div class="more-option" onclick="window.location.href = '/getEvent/{{ $post->event_id }}'">
+                            <div class="more-option" onclick="window.location.href = '/getEvent/{{ $post->post_id }}'">
                                 <i class="bi bi-bookmark" style="font-size: 15px;"></i>
                                 <span>More Info</span>
                             </div>
@@ -82,7 +82,7 @@
                     </div>
                     <div class="post-side">
                         <h3 class="post-title">{{ $post->title }}</h3>
-                        <p class="cateogory-event">{{ $post->category }}</p>
+                        <p class="cateogory-event">{{ $post->business_type }}</p>
                         <p class="post-description">
                             {!! $post->description !!}
                             @if (strlen($post->description) > 200)
@@ -95,36 +95,32 @@
                 </div>
                 <div class="post-footer">
                     <div class="post-likes">
-                        <p class="post-likes-desc">
-                            Price :
-                        </p>
-                        <span>
-                            @if ($post->price == 0)
-                                Free
-                            @else
-                                {{ $post->price }} $
-                            @endif
-                            </span>
+                        <i class="bi bi-heart like-btn"></i>
+                        <span>100</span>
                     </div>
                     <div class="post-likes">
-                        <p class="post-likes-desc">
-                            Empty Spots :
-                        </p>
-                        <span>{{ $post->spots }}</span>
+                        <i class="bi bi-chat chat-btn" onclick="showComment(this)"></i>
+                        <span>12</span>
+                    </div>
+                    <div class="post-comment">
+                        <form class="note-form" method="post">
+                            <input type="text" class="note-inp" placeholder="Write a positive comment ...">
+                            <button class="note-btn"><i class="bi bi-send" style="font-size: 18px;"></i></button>
+                        </form>
                     </div>
                     <div class="post-likes">
-                        <p class="post-likes-desc">
-                            Total Spots :
-                        </p>
-                        <span>{{ $post->places }}</span>
+                        <i class="bi bi-share share-btn"></i>
+                        <span>5</span>
                     </div>
                     <div class="post-likes">
-                        <p class="post-likes-desc">
-                            {{ number_format(100 - ($post->spots * 100 / $post->places), 2) }}% Full
-                        </p>
-                        <div class="slider-per">
-                            <div class="per" style="width: {{ 100 - ( $post->spots * 100 / $post->places ) }}%"></div>
-                        </div>
+                        <i class="bi bi-question-circle question-btn" onclick="showNote(this)"></i>
+                        <span>5</span>
+                    </div>
+                    <div class="post-note">
+                        <form class="note-form" method="post">
+                            <input type="text" class="note-inp" placeholder="Send a note or a question ...">
+                            <button class="note-btn"><i class="bi bi-send" style="font-size: 18px;"></i></button>
+                        </form>
                     </div>
                 </div>
             </div>

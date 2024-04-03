@@ -11,12 +11,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css" />
     <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <title>QuickTable | Reserve  It Now</title>
 </head>
 <body>
     <header class="index-header">
         <h1 class="login-h1">Quick<img src="assets/table.svg" class="table-icon" alt="">able</h1>
-        <img src="assets/LOGO.svg" class="table-icon" alt="">
         @if (session('user'))
         <div class="account" id="account-bar" onclick="dropdown(this)">
             <i class="bi bi-person-down" id="arrow" style="font-size: 30px;"></i>
@@ -63,7 +63,7 @@
                     <i class="bi bi-person-fill" style="font-size: 20px;"></i>
                     <span>Users</span>
                 </div>
-                <div class="side-option" onclick="window.location.href='/allEvents'">
+                <div class="side-option" onclick="window.location.href='/allposts'">
                     <i class="bi bi-calendar3" style="font-size: 20px;"></i>
                     <span>Events</span>
                 </div>
@@ -114,3 +114,7 @@
 </body>
 </html>
 <script src="js/script.js" defer></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>

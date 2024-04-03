@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('role')->default('User');
+            $table->string('role')->default('User');            $table->string('pp')->default('../uploads/defaultuser.webp');
             $table->timestamps();
         });
     }

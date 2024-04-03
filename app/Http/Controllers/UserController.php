@@ -21,10 +21,9 @@ class UserController extends Controller
             redirect('/login');
         }
         $reservations = DB::table('reservation')
-            ->select('posts.*', 'reservation.*', 'users.*', 'categories.*', 'reservation.id as reservation_id' ,'posts.id as event_id')
+            ->select('posts.*', 'reservation.*', 'users.*', 'reservation.id as reservation_id' ,'posts.id as post_id')
             ->leftJoin('posts', 'posts.id', '=', 'reservation.business_id')
-            ->leftJoin('users', 'users.id', '=', 'posts.user_id')
-            ->leftJoin('categories', 'categories.id', '=', 'posts.category_id')
+            ->leftJoin('users', 'users.id', '=', 'posts.business_id')
             ->where('reservation.user_id', session('user')->id)
             ->get();
         return view('user.myreservations', ['reservations' => $reservations]);

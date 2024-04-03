@@ -3,7 +3,7 @@
 <section class="all">
     <section class="table-heading">
         <h1>Categories</h1>
-        <a class="table-head-btn" onclick="addCat('addModal')">Add Category <i class="bi bi-plus-circle"></i></a>
+        <a class="post-btns-btn" onclick="addCat('addModal')">Add Category <i class="bi bi-plus-circle"></i></a>
     </section>
     <section class="table-events">
         <table id="myTable" class="display">
@@ -62,8 +62,14 @@
     </form>
 </section>
 <script>
-    $(document).ready( function () {
-        $('#myTable').DataTable();
+    $(document).ready(function() {
+    $('#myTable').DataTable({
+        "columnDefs": [
+            { "width": "5%", "targets": 0 }, // First column width as 20%
+            { "width": "50%", "targets": 1 }, // Second column width as 30%
+            { "width": "10%", "targets": 2 }  // Third column width as 50%
+        ]
     });
+});
 </script>
 @endsection
