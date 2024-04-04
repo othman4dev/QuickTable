@@ -5,29 +5,20 @@ phases:
     runtime-versions:
       php: 8.1
     commands:
-      - sudo apt-get update -y
-      - sudo apt-get install -y mysql-server
-      - sudo mysql -e "ALTER USER 'root'@'localhost';"
-      - sudo mysql -e "CREATE DATABASE quicktable;"
-      - sudo mysql -e "CREATE USER 'othmandev'@'localhost' IDENTIFIED BY 'password';"
-      - sudo mysql -e "GRANT ALL PRIVILEGES ON quicktable.* TO 'othmandev'@'localhost';"
-      - sudo mysql -e "FLUSH PRIVILEGES;"
-      - sudo curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-      - sudo apt-get install -y libpq-dev libzip-dev
-      - sudo apt-get install -y php-pgsql
-      - sudo curl -sS https://getcomposer.org/installer -o composer-setup.php
-      - sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-
+      - apt-get update -y
+      - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+      - apt-get install -y libpq-dev libzip-dev
+      - apt-get install -y php-pgsql
+      - curl -sS https://getcomposer.org/installer -o composer-setup.php
+      - php composer-setup.php --install-dir=/usr/local/bin --filename=composer
   pre_build:
     commands:
-      - sudo composer update
-      - sudo npm install
-
+      - composer update
+      - npm install
 artifacts:
   files:
     - "**/*"
   name: $(date +%Y-%m-%dT%H:%M:%S).zip
-
 proxy:
   upload-artifacts: yes
   logs: yes
