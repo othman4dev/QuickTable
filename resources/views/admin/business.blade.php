@@ -2,26 +2,35 @@
 @section('content')
 <section class="all">
     <section class="table-heading">
-        <h1>Categories</h1>
-        <a class="post-btns-btn" onclick="addCat('addModal')">Add Category <i class="bi bi-plus-circle"></i></a>
+        <h1>Businesses</h1>
     </section>
-    <section class="table-events">
+    <section class="table-events" style="min-height:84.5%;">
         <table id="myTable" class="display">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Category</th>
-                    <th style="width: 120px">Actions</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Address</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Type</th>
+                    <th>Created at</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($categories as $category)
-                <tr>
-                    <td>{{ $category->id }}</td>
-                    <td>{{ $category->category }}</td>
-                    <td style="width: 120px">
-                        <a class="action-btn" onclick="transferEdit({{ $category->id }},'{{ $category->category }}')">Edit<i class="bi bi-pencil-square"></i></a>
-                        <a class="action-btn" onclick="transferDel({{ $category->id }},'{{ $category->category }}')">Delete<i class="bi bi-trash3-fill"></i></a>
+                @foreach ($businesses as $business)
+                <tr data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+                    <td>{{ $business->name }}</td>
+                    <td>{!! Illuminate\Support\Str::limit($business->description , 75) !!}</td>
+                    <td>{{ $business->address }}</td>
+                    <td>{{ $business->email }}</td>
+                    <td>{{ $business->phone }}</td>
+                    <td>{{ $business->business_type }}</td>
+                    <td>{{ $business->created_at }}</td>
+                    <td>
+                        <a href="/business/{{ $business->id }}" class="action-btn">Open <i class="bi bi-box-arrow-up-right"></i></a>
+                        <a href="/business/delete/{{ $business->id }}" class="action-btn">Delete <i class="bi bi-trash3-fill"></i></a>
                     </td>
                 </tr>
                 @endforeach
@@ -65,9 +74,14 @@
     $(document).ready(function() {
     $('#myTable').DataTable({
         "columnDefs": [
-            { "width": "5%", "targets": 0 }, // First column width as 20%
-            { "width": "50%", "targets": 1 }, // Second column width as 30%
-            { "width": "10%", "targets": 2 }  // Third column width as 50%
+            { "width": "5%", "targets": 0 },
+            { "width": "15%", "targets": 1 },
+            { "width": "15%", "targets": 2 },
+            { "width": "10%", "targets": 3 },
+            { "width": "10%", "targets": 4 },
+            { "width": "10%", "targets": 5 },
+            { "width": "10%", "targets": 6 },
+            { "width": "15%", "targets": 7 }
         ]
     });
 });

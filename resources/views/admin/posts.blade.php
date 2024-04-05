@@ -1,7 +1,10 @@
 @extends('layouts.admin')
 @section('content')
 <section class="all">
-    <section class="table-events">
+    <section class="table-heading">
+        <h1>Posts</h1>
+    </section>
+    <section class="table-events" style="min-height:84.5%;">
         <table id="myTable" class="display">
             <thead>
                 <tr>
@@ -16,7 +19,7 @@
             </thead>
             <tbody>
                 @foreach ($posts as $post)
-                <tr>
+                <tr data-aos="fade-up" data-aos-anchor-placement="top-bottom">
                     <td style="padding-right:20px">
                         @if ($post->image)
                             <img src="{{ $post->image }}" alt="" style="width: 50px;height: 50px;border-radius: 50%;">

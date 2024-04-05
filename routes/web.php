@@ -6,7 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\OrganizatorController;
+use App\Http\Controllers\OwnerController;
 
 
 /*
@@ -24,7 +24,7 @@ Route::middleware(['role:Admin'])->group(function() {
     Route::get('/stats', [AdminController::class, 'stats']);
     Route::get('/users' ,[AdminController::class, 'users']);
     Route::get('/allposts' , [AdminController::class, 'posts']);
-    Route::get('/categories' ,[AdminController::class , 'categories']);
+    Route::get('/business' ,[AdminController::class , 'business']);
     Route::get('/posts/delete/{id}', [PostsController::class, 'delete'])->name('delete');
     Route::get('/posts/approve/{id}', [PostsController::class, 'approve'])->name('approve');
     Route::get('/posts/reject/{id}', [PostsController::class, 'reject'])->name('reject');
@@ -34,19 +34,19 @@ Route::middleware(['role:Admin'])->group(function() {
     Route::get('/upgrade/{id}', [AdminController::class, 'upgrade'])->name('upgrade');
     Route::get('/downgrade/{id}', [AdminController::class, 'downgrade'])->name('downgrade');
 });
-//ORGANIZATOR ROLE
-Route::middleware(['role:Organizator'])->group(function () {
-    Route::get('/myposts', [OrganizatorController::class, 'getMyposts']);
-    Route::get('/add', [OrganizatorController::class, 'addPage']);
-    Route::get('/money' , [OrganizatorController::class, 'money']);
-    Route::post('/addPost', [OrganizatorController::class, 'addPost']);
-    Route::get('/profile' , [OrganizatorController::class, 'profile']);
-    Route::get('/edit/{id}', [OrganizatorController::class, 'edit'])->name('edit');
-    Route::post('/editPost' , [OrganizatorController::class, 'editPost']);
-    Route::get('/deletePost/{id}', [OrganizatorController::class, 'deletePost'])->name('deletePost');
-    Route::get('/reservations' , [OrganizatorController::class, 'reservations']);
-    Route::get('/approveReservation/{id}', [OrganizatorController::class, 'approveReservation'])->name('approveReservation');
-    Route::get('/rejectReservation/{id}', [OrganizatorController::class, 'rejectReservation'])->name('rejectReservation');
+//Owner ROLE
+Route::middleware(['role:Owner'])->group(function () {
+    Route::get('/myposts', [OwnerController::class, 'getMyposts']);
+    Route::get('/add', [OwnerController::class, 'addPage']);
+    Route::get('/money' , [OwnerController::class, 'money']);
+    Route::post('/addPost', [OwnerController::class, 'addPost']);
+    Route::get('/profile' , [OwnerController::class, 'profile']);
+    Route::get('/edit/{id}', [OwnerController::class, 'edit'])->name('edit');
+    Route::post('/editPost' , [OwnerController::class, 'editPost']);
+    Route::get('/deletePost/{id}', [OwnerController::class, 'deletePost'])->name('deletePost');
+    Route::get('/reservations' , [OwnerController::class, 'reservations']);
+    Route::get('/approveReservation/{id}', [OwnerController::class, 'approveReservation'])->name('approveReservation');
+    Route::get('/rejectReservation/{id}', [OwnerController::class, 'rejectReservation'])->name('rejectReservation');
 });
 //USER ROLE
 Route::middleware(['role:User'])->group(function () {
@@ -93,7 +93,7 @@ Route::get('/', function () {
         return view('login');
     } else if ( session('user')->role == 'Admin') {
         return redirect('/stats');
-    } else if ( session('user')->role == 'Organizator') {
+    } else if ( session('user')->role == 'Owner') {
         return redirect('/profile');
     } else if ( session('user')->role == 'User') {
         $posts = PostsController::allPosts();

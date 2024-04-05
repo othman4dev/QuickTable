@@ -13,8 +13,9 @@
     <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
     <script src="https://cdn.tiny.cloud/1/w5o6851coln6uxz4eqge6bq0qi2ez0n5zwyprq67sybzjlf9/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://fonts.cdnfonts.com/css/reem-kufi" rel="stylesheet">
     <title>QuickTable | Reserve  It Now</title>
 </head>
 <body>
@@ -57,7 +58,7 @@
             <div class="main-side" id="main-side">
                 <div class="side-option" onclick="window.location.href = '/myposts'">
                     <i class="bi bi-shop-window" style="font-size: 20px;"></i>
-                    <span>My Events</span>
+                    <span>My Posts</span>
                 </div>
                 <div class="side-option" onclick="window.location.href = '/money'">
                     <i class="bi bi-cash-coin" style="font-size: 20px"></i>
@@ -114,8 +115,35 @@
                 </div>          
             </div>
             <img src="assets/s1.jfif" alt="" class="image-big" id="display-image">
+        </div>
+    </div>
+    <div class="menu-item-modal" style="font-family: 'Reem Kufi', sans-serif !important;">
+        <div class="menu-item-header">
+            <div class="closer" onclick="this.parentNode.parentNode.style.display = 'none'">                
+                <i class="bi bi-x-lg"></i>
+            </div>
+        </div>
+        <div class="menu-item-body">
+            <div class="menu-item-image" id="menu-image">
+
+            </div>
+            <div class="menu-item-texts">
+                <h2 class="menu-item-title" id="menu-title">Title</h2>
+                <p class="menu-item-description" id="menu-description">Description</p>
+            </div>
+            <div class="menu-item-price">
+                <h2 class="menu-item-price-value" id="menu-price">15 $</h2>
+            </div>
+        </div>
+        <div class="menu-item-footer">
+            <button class="menu-item-btn">Cancel</button>
+            <button class="menu-item-btn">Buy</button>
+        </div>
     </div>
 </body>
 </html>
 <script src="js/script.js" defer></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>

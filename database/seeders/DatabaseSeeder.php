@@ -37,6 +37,18 @@ class DatabaseSeeder extends Seeder
                 'background_image' => '../uploads/defaultbusiness.jpg',
                 'status' => $faker->boolean(),
                 'created_at' => $faker->dateTime(),
+                'owner_id' => 2,
+            ]);
+        }
+        for ($i = 0; $i < 20; $i++) {
+            DB::table('menu')->insert([
+                'name' => $faker->sentence(),
+                'description' => $faker->paragraph(),
+                'image' => '../uploads/defaultmenu.jpg',
+                'price' => $faker->numberBetween(10, 100),
+                'business_id' => '1',
+                'created_at' => $faker->dateTime(),
+                'updated_at' => $faker->dateTime(),
             ]);
         }
         DB::table('users')->insert([

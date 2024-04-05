@@ -11,49 +11,12 @@ class AdminController extends Controller
         $users = DB::table('users')->get();
         return view('admin.users', ['users' => $users]);
     }
-    public static function categories() {
-        $categories = DB::table('categories')->get();
-        return view('admin.categories', ['categories' => $categories]);
-    }
-    public static function addCategory(Request $request) {
-        $request->validate([
-            'categories' => 'required'
-        ]);
-        DB::table('categories')->insert(['category' => $request->input('category')]);
-        return redirect('/categories');
-    }
-    public static function deleteCategory($id) {
-        DB::table('categories')->where('id', $id)->delete();
-        return redirect('/categories');
-    }
-    public static function editCategory(Request $request) {
-        $request->validate([
-            'category' => 'required'
-        ]);
-        DB::table('categories')->where('id', $request->input('id'))->update(['category' => $request->input('category')]);
-        return redirect('/categories');
-    }
-    public static function deleteCat($id) {
-        DB::table('categories')->where('id', $id)->delete();
-        return redirect('/categories');
-    }
-    public static function addCat(Request $request) {
-        $request->validate([
-            'category' => 'required'
-        ]);
-        DB::table('categories')->insert(['category' => $request->input('category')]);
-        return redirect('/categories');
-    }
-    public static function editCat(Request $request) {
-        $request->validate([
-            'id' => 'required',
-            'category' => 'required'
-        ]);
-        DB::table('categories')->where('id', $request->input('id'))->update(['category' => $request->input('category')]);
-        return redirect('/categories');
+    public static function business() {
+        $businesses = DB::table('business')->get();
+        return view('admin.business', ['businesses' => $businesses]);
     }
     public static function upgrade($id) {
-        DB::table('users')->where('id', $id)->update(['role' => 'Organizator']);
+        DB::table('users')->where('id', $id)->update(['role' => 'owner']);
         return redirect('/users');
     }
     public static function downgrade($id) {
@@ -61,12 +24,12 @@ class AdminController extends Controller
         return redirect('/users');
     }
     public static function stats() {
-        $organizators = DB::table('users')->where('role', 'Organizator')->count();
+        $owners = DB::table('users')->where('role', 'Owner')->count();
         $users = DB::table('users')->where('role', 'User')->count();
         $reservations = DB::table('reservation')->count();
         $posts = DB::table('posts')->count();
         $admins = DB::table('users')->where('role', 'Admin')->count();
-        return view('admin.stats', ['users' => $users, 'reservations' => $reservations, 'posts' => $posts , 'organizators' => $organizators , 'admins' => $admins]);
+        return view('admin.stats', ['users' => $users, 'reservations' => $reservations, 'posts' => $posts , 'owners' => $owners , 'admins' => $admins]);
     }
     public static function posts() {
         $posts = DB::table('posts')

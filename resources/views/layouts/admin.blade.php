@@ -64,12 +64,12 @@
                     <span>Users</span>
                 </div>
                 <div class="side-option" onclick="window.location.href='/allposts'">
-                    <i class="bi bi-calendar3" style="font-size: 20px;"></i>
-                    <span>Events</span>
+                    <i class="bi bi-file-post" style="font-size: 20px;"></i>
+                    <span>Posts</span>
                 </div>
-                <div class="side-option" onclick="window.location.href='/categories'">
-                    <i class="bi bi-diagram-3-fill" style="font-size: 20px;"></i>
-                    <span>Categories</span>
+                <div class="side-option" onclick="window.location.href='/business'">
+                    <i class="bi bi-briefcase-fill" style="font-size: 20px;"></i>
+                    <span>Businesses</span>
                 </div>
                 <div class="side-option" onclick="window.location.href='/settings'">
                     <i class="bi bi-gear" style="font-size: 20px;"></i>

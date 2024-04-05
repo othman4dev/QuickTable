@@ -20,6 +20,12 @@ class LoginController extends Controller
         $user = DB::table('users')->where('email', $username)->first();
         if ($user && password_verify($password , $user->password) && $user->email_verified_at != null) {
             session(['user' => $user]);
+            if ($user->role == 'Owner') {
+                $business = DB::table('business')->where('owner_id', $user->id)->first();
+                if ($business) {
+                    session(['business' => $business]);
+                }
+            }
             return redirect('/');
         } else if ( $user && $user->email_verified_at == null) {
             $token = rand(1000, 9999);

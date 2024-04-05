@@ -11,22 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reservation', function (Blueprint $table) {
+        Schema::create('menu', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->string('name');
+            $table->text('description');
+            $table->string('image');
+            $table->integer('price');
             $table->unsignedBigInteger('business_id');
             $table->foreign('business_id')->references('id')->on('business');
-            $table->unsignedBigInteger('item_id');
-            $table->foreign('item_id')->references('id')->on('menu');
-            $table->integer('quantity');
-            $table->string('type');
-            $table->integer('token');
-            $table->integer('status')->default(0);
-            $table->rememberToken();
             $table->timestamps();
         });
     }
+
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         //

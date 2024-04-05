@@ -223,6 +223,7 @@ body {
 .all {
     display: flex;
     flex-wrap: wrap;
+    row-gap: 0px;
     width: 100%;
 }
 .tops {
@@ -1192,7 +1193,7 @@ i.question-btn:hover {
     border-radius: 10px;
     background-color: #181818;
     flex-grow: 1;
-    width: 100px;
+    min-width: 150px;
 }
 .user-status-item:hover {
     background-color: #212121;
@@ -1217,11 +1218,26 @@ i.question-btn:hover {
     background-color: #fff;
     border-radius: 7px;
 }
-.swippers {
+.under-profile {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     width: 100%;
+    padding: 15px;
+}
+.under-profile-menu {
+    background-color: #D9D9D9;
+    border-radius: 7px;
+    padding: 15px;
+    flex-grow: 1;
+    height: 100%;
+}
+.swippers {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    width: fit-content;
     padding-bottom: 15px;
     flex-wrap: wrap;
     padding-inline: 15px;
@@ -1454,10 +1470,13 @@ i.question-btn:hover {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px;
+    padding: 10px;
     width: 100%;
     background-color: #fff;
     border-radius: 7px;
+}
+.add-post-title {
+    font-size: 20px;
 }
 .add-post-header:hover {
     transition: 0.3s;
@@ -1509,6 +1528,14 @@ input[type="file"] {
     align-items: center;
     width: 100%;
     margin: 7px;
+}
+input[type="file"]:disabled {
+    cursor: not-allowed;
+}
+input[type="file"]:disabled::file-selector-button {
+    color: #414141;
+    background-color: #fff;
+    cursor: not-allowed;
 }
 input[type="file"]::file-selector-button {
     background-color: #000;
@@ -2177,6 +2204,7 @@ nav[role="navigation"] a:hover {
     font-size: 10px;
     color: #000;
     padding-left: 15px;
+    padding-bottom: 15px;
 }
 #email-error {
     display: inline;
@@ -2196,4 +2224,213 @@ button:disabled  {
 }
 .mobile-bar-container {
     display: none;
+}
+.image-question-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 15px;
+    padding: 15px;
+    color: #000;
+}
+.image-question {
+    height: 20px;
+    width: 20px;
+    accent-color: #ddd;
+}
+.question-answer {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+.edit-btns {
+    display: flex;
+    gap: 15px;
+}
+.edit-btn-profile {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 140px;
+    min-width: 140px;
+}
+.edit-btn-profile:hover {
+    background-color: #1b1b1b;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.edit-profile-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 15px;
+    padding-bottom: 0;
+    width: 100%;
+    padding-left: 30px;
+}
+.menu-header {
+    height: 80px;
+    text-align: center;
+    justify-content: center;
+    color: #000;
+    font-size: 60px;
+}
+.menu-cols {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    gap: 25px;
+    padding: 15px;
+    height: 100%;
+}
+.menu-col {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    gap: 15px;
+    padding: 15px;
+    flex-wrap: wrap;
+}
+.menu-line {
+    width: 5px;
+    height: 80%;
+    background-color: #C6C6C6;
+}
+.menu-item {
+    background-color: #C6C6C6;
+    border-radius: 700px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    width: 100%;
+    cursor: pointer;
+}
+.menu-item:hover {
+    box-shadow: 0px 0px 15px 1px #00000020;
+    transition: 0.3s;
+}
+.menu-item-img {
+    background-color: #000;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+.menu-item-name {
+    color: #fff;
+}
+.col-title {
+    padding-left: 25px;
+}
+.nexter {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 15px;
+    width: 100%;
+}
+.next-btn {
+    background-color: #000;
+    color: #fff;
+    padding: 10px;
+    width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+}
+.next-btn:hover {
+    width: 130px;
+    transition: 0.3s;
+}
+.menu-item-modal {
+    background-color: #D9D9D9;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 7px;
+    padding: 15px;
+    z-index: 9999;
+    width: 450px;
+    box-shadow: 0 0 15px 1px #00000020;
+    display: none;
+}
+.menu-item-header {
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    font-size: 23px;
+    padding-bottom: 15px;
+}
+.closer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+}
+.menu-item-body {
+    display: flex;
+    height: 150px;
+    background-color: #C6C6C6;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 15px;
+    padding: 15px;
+    border-radius: 7px;
+}
+.menu-item-image {
+    background-color: #D9D9D9;
+    height: 100px;
+    width: 100px;
+    background-position: center;
+    background-size: cover;
+}
+.menu-item-texts {
+    flex-grow: 1;
+    color: #000;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    height: 70%;
+}
+.menu-item-price {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 70%;
+    color: #000;
+}
+.menu-item-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-top: 15px;
+    padding-right: 15px;
+    width: 100%;
+    gap: 15px;
+}
+.menu-item-btn {
+    background-color: #696969;
+    color: #fff;
+    padding: 15px;
+    border: none;
+    min-width: 90px;
+    cursor: pointer;
+}
+.menu-item-btn:hover {
+    background-color: #000;
+    transition: 0.3s;
 }

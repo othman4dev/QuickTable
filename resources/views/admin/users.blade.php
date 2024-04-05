@@ -1,11 +1,11 @@
 @extends('layouts.admin')
 @section('content')
 <section class="all">
-    <section class="table-events">
-        <section class="table-heading">
-            <h1>Users</h1>
-        </section>
-        <table id="myTable" class="display">
+    <section class="table-heading">
+        <h1>Users</h1>
+    </section>
+    <section class="table-events" style="min-height:84.5%;">
+        <table id="myTable" class="display" >
             <thead>
                 <tr>
                     <th>First Name</th>
@@ -18,7 +18,7 @@
             </thead>
             <tbody>
                 @foreach ($users as $user)
-                <tr>
+                <tr data-aos="fade-up" data-aos-anchor-placement="top-bottom">
                     <td>{{ $user->firstname }}</td>
                     <td>{{ $user->lastname }}</td>
                     <td>{{ $user->email }}</td>

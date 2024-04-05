@@ -530,3 +530,19 @@ function checkEmailAjax(input) {
         }
     } 
 }
+function addImage(el) {
+    if (el.checked) {
+        document.getElementById('image').disabled = false;
+        document.getElementById('image').required = true
+    } else {
+        document.getElementById('image').disabled = true;
+        document.getElementById('image').required = false;
+    }
+}
+function showMenuItem(image,title,description,price) {
+    document.getElementById('menu-image').style.backgroundImage = "url('" + image + "')";
+    document.getElementById('menu-title').innerText = title;
+    document.getElementById('menu-description').innerText = description;
+    document.getElementById('menu-price').innerText = price + ' $';
+    document.querySelector('.menu-item-modal').style.display = 'block';
+}

@@ -23,9 +23,9 @@
             </div>
             <div class="stat-option">
                 <i class="bi bi-person-fill-lock stat-icon grey"></i>
-                <h2>Organizators</h2>
+                <h2>Owners</h2>
                 
-            </div><p>{{ $organizators}}</p>
+            </div><p>{{ $owners}}</p>
         </div>
         <div class="card-stat">
             <div class="absolute-illu">

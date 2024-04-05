@@ -1,4 +1,4 @@
-@extends('layouts.organizator')
+@extends('layouts.owner')
 @section('content')
     <section class="all">
             <section class="add-post">
