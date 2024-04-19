@@ -33,7 +33,7 @@
                     <td>{{ $post->business_type }}</td>
                     <td>{{ $post->firstname}} {{ $post->lastname }}</td>
                     <td>
-                        <a href="/post{{ $post->post_id }}" class="action-btn" style="border-radius: 0px">Open <i class="bi bi-box-arrow-up-right"></i></a>
+                        <a href="/getPost/{{ $post->post_id }}" class="action-btn" style="border-radius: 0px">Open <i class="bi bi-box-arrow-up-right"></i></a>
                         <a href="/posts/delete/{{ $post->post_id }}" class="action-btn" style="border-radius: 0px">Delete <i class="bi bi-trash3-fill"></i></a>
                     </td>
                 </tr>

@@ -181,7 +181,11 @@ class PostsController extends Controller
         ->where('posts.id', $id)
         ->first();
         $postCount = DB::table('posts')->where('business_id', $post->businessId)->count();
-        return view('user.post', ['post' => $post, 'postCount' => $postCount]);
+        if ( session('user')->role == 'Admin') {
+            return view('admin.post', ['post' => $post, 'postCount' => $postCount]);
+        } else {
+            return view('user.post', ['post' => $post, 'postCount' => $postCount]);
+        }
     }
     public static function businesses() {
         $businesses = DB::table('business')
