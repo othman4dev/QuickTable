@@ -12,7 +12,7 @@ phases:
       - curl -sS https://getcomposer.org/installer -o composer-setup.php
       - php composer-setup.php --install-dir=/usr/local/bin --filename=composer
       - composer update
-      - php artisan migrate:fresh
+      - php artisan migrate
       - php artisan db:seed
   pre_build:
     commands:
