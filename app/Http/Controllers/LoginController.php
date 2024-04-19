@@ -22,6 +22,30 @@ class LoginController extends Controller
             session(['user' => $user]);
             if ($user->role == 'Owner') {
                 $business = DB::table('business')->where('owner_id', $user->id)->first();
+                $slides = DB::table('slides')->where('business_id', $business->id)->where('slider_index' , 1)->get();
+                $images = [];
+                foreach ($slides as $slide) {
+                    if ($slide->image != null) {
+                        array_push($images, $slide->image);
+                    } else {
+                        array_push($images, '../assets/noimage.png');
+                    }
+                }
+                $slides2 = DB::table('slides')->where('business_id', $business->id)->where('slider_index' , 2)->get();
+                $images2 = [];
+                foreach ($slides2 as $slide) {
+                    if ($slide->image != null) {
+                        array_push($images2, $slide->image);
+                    } else {
+                        array_push($images2, '../assets/noimage.png');
+                    }
+                }
+                $menu = DB::table('menu')->where('business_id', $business->id)->get();
+                session(['slider1_title' => $slides[0]->title]);
+                session(['slider2_title' => $slides2[0]->title]);
+                session(['slider1' => $images]);
+                session(['slider2' => $images2]);
+                session(['menu' => $menu]);
                 if ($business) {
                     session(['business' => $business]);
                 }

@@ -33,6 +33,7 @@ Route::middleware(['role:Admin'])->group(function() {
     Route::post('/editCat', [AdminController::class, 'editCat']);
     Route::get('/upgrade/{id}', [AdminController::class, 'upgrade'])->name('upgrade');
     Route::get('/downgrade/{id}', [AdminController::class, 'downgrade'])->name('downgrade');
+    Route::get('/reports', [AdminController::class, 'reports']);
 });
 //Owner ROLE
 Route::middleware(['role:Owner'])->group(function () {
@@ -47,6 +48,13 @@ Route::middleware(['role:Owner'])->group(function () {
     Route::get('/reservations' , [OwnerController::class, 'reservations']);
     Route::get('/approveReservation/{id}', [OwnerController::class, 'approveReservation'])->name('approveReservation');
     Route::get('/rejectReservation/{id}', [OwnerController::class, 'rejectReservation'])->name('rejectReservation');
+    Route::post('/saveBanner', [OwnerController::class, 'saveBanner']);
+    Route::post('/editInfo', [OwnerController::class, 'editInfo']);
+    Route::get('/deleteSlide/{xy}', [OwnerController::class, 'deleteSlide'])->name('deleteSlide');
+    Route::post('/saveSliders', [OwnerController::class, 'saveSliders']);
+    Route::get('/deleteMenuItem/{id}', [OwnerController::class, 'deleteMenuItem'])->name('deleteMenuItem');
+    Route::post('/editMenuItem', [OwnerController::class, 'editMenuItem']);
+    Route::post('/addMenuItem', [OwnerController::class, 'addMenuItem']);
 });
 //USER ROLE
 Route::middleware(['role:User'])->group(function () {
@@ -55,6 +63,10 @@ Route::middleware(['role:User'])->group(function () {
     Route::get('/reserve/{id}', [PostsController::class, 'reserve'])->name('reserve');
     Route::get('/cancel/{id}', [PostsController::class, 'cancel'])->name('cancel');
     Route::get('/posts' , [UserController::class, 'dashboard']);
+    Route::get('/reportBusiness/{id}', [PostsController::class, 'reportBusiness'])->name('reportBusiness');
+    Route::get('/restaurants', [PostsController::class, 'restaurants']);
+    Route::get('/coffeeshops', [PostsController::class, 'coffeeshops']);
+    Route::get('/likePost/{id}', [PostsController::class, 'likePost'])->name('likePost');
 });
 //GUEST ROLE
 Route::middleware(['norole'])->group(function () {
@@ -82,10 +94,10 @@ Route::middleware(['norole'])->group(function () {
 // All Roles
 Route::middleware(['user'])->group(function () {
     Route::get('/logout', [LoginController::class, 'logout']);
-    Route::get('/getPost/{id}', [PostsController::class, 'getPost'])->name('post');
+    Route::get('/getBusiness/{id}', [PostsController::class, 'getBusiness'])->name('business');
     Route::get('/post' , [PostsController::class , 'post']);
     Route::get('/search/{search}', [PostsController::class, 'search'])->name('search');
-    
+    Route::get('/getPost/{id}', [PostsController::class, 'getPost'])->name('getPost');
     Route::post('/sendMail', [EmailController::class, 'sendMail']);
 });
 Route::get('/', function () {
@@ -97,7 +109,8 @@ Route::get('/', function () {
         return redirect('/profile');
     } else if ( session('user')->role == 'User') {
         $posts = PostsController::allPosts();
-        return view('user.index', ['posts' => $posts]);
+        $businesses = PostsController::businesses();
+        return view('user.index', ['posts' => $posts , 'businesses' => $businesses]);
     }
 });
 

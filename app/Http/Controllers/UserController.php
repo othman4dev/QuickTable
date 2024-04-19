@@ -50,6 +50,7 @@ class UserController extends Controller
     }
     public static function dashboard() {
         $posts = PostsController::allPosts();
-        return view('user.posts', ['posts' => $posts]);
+        $businesses = PostsController::businesses();
+        return view('user.posts', ['posts' => $posts, 'businesses' => $businesses]);
     }
 }

@@ -2,59 +2,67 @@
 @section('content')
 
 <section class="all">
-    <section class="feed" style="width: 100%">
+    <section class="feed" style="width: 100%;padding-top:15px;">
         <section class="my-city">
             <div class="nearby">
                 <h1>Nearby</h1>
             </div>
-            @foreach ($posts as $post)
-            <div class="nearby-option">
-                <div class="nearby-option-logo">
-                    {{ $post->spots }}
+            @foreach ($businesses as $business)
+            <div class="business-card" style="background-image: url('{{ $business->background_image }}');cursor:pointer" onclick="window.location.href = '/getBusiness/{{$business->businessId}}'">
+                <div class="business-card-overlay">
+
                 </div>
-                <div class="nearby-option-texts">
-                    <h3 class="nearby-option-title">{{ Illuminate\Support\Str::limit($post->title, 20) }}</h3>
-                    <p class="nearby-option-description">{{ $post->category }}, {{ Illuminate\Support\Str::limit($post->location, 10) }}</p>
+                <div class="business-card-top">
+                    <div class="business-card-logo" style="background-image: url('{{ $business->pp }}')">
+                        
+                    </div>
+                    <div class="business-card-texts">
+                        <h1 class="business-card-title">{{ $business->name }}</h1>
+                        <p class="business-card-description">{{ $business->description }}</p>
+                    </div>
                 </div>
-                <div class="nearby-option-logo">
-                    {{ floor($post->price) }}$
+                <div class="business-card-bottom">
+                    <div class="texts">
+                        <p class="business-card-description">{{ $business->firstname }} {{ $business->lastname }}</p>
+                        <p class="business-card-description">{{ $business->business_type }}</p>
+                    </div>
+                    <div class="texts">
+                        <p class="business-card-description">{{ $business->address }}</p>
+                        <p class="business-card-description">{{ $business->base_price }}$ / seat</p>
+                    </div>
+                    <div class="texts">
+                        <p class="business-card-description">{{ $business->email }}</p>
+                        <p class="business-card-description">{{ $business->phone }}</p>
+                    </div>
                 </div>
-                
             </div>
             @endforeach
-            @if (count($posts) == 0)
+            @if (count($businesses) == 0)
                 <div class="nearby-option">
                     <div class="no-events-nearby">
                         <h1><i class="bi bi-emoji-frown-fill"></i> No Events Yet</h1>
-                        <p>Start adding events to your profile</p>
+                        <p>Please check later for new businesses</p>
                     </div>
                 </div>
             @endif
-            <div class="nearby-loading">
-                <div class="loader"></div>
-            </div>
         </section>
         <section class="posts">
             @foreach ( $posts as $post)
-            <div class="post">
+            <div class="post" data-aos="fade-up">
                 <div class="post-header">
                     <div class="post-profile">
-                        <div class="post-profile-image">
+                        <div class="post-profile-image" style="background-image: url('{{ $post->owner_pp }}');background-position:center;background-size:cover;">
                         </div>
                         <div class="post-profile-texts">
-                            <span class="post-profile-name">{{ @$post->firstname }} {{ @$post->lastname }}</span>
-                            <span class="post-profile-description">{{ $post->location }}, {{ $post->created_at }}</span>
+                            <span class="post-profile-name">{{ @$post->name }}</span>
+                            <span class="post-profile-description">{{ \Carbon\Carbon::parse($post->created_at)->format('l jS F Y h:i A') }}</span>
                         </div>
                     </div>
                     <div class="post-buttons">
-                        @if (@$post->reserved !== null)
-                            <button class="post-btns-btn" disabled> Reserved <i class="bi bi-check"></i></button>
-                        @elseif ( @$post->reserved == null) 
-                            <button class="post-btns-btn" onclick="reserveAjax( {{ $post->event_id }} , this)"> Reserve <i class="bi bi-person-check-fill"></i></button>
-                        @endif
+                        <a href="/getBusiness/{{ $post->businessId }}" style="text-decoration: none"><button class="post-btns-btn" > Profile <i class="bi bi-person-check-fill"></i></button></a>
                         <button class="post-btns-btn" onclick="showMore(this.nextElementSibling)">More <i class="bi bi-three-dots-vertical button-icons"></i></button>
                         <div class="more-dropdown">
-                            <div class="more-option" onclick="window.location.href = '/getEvent/{{ $post->event_id }}'">
+                            <div class="more-option" onclick="window.location.href = '/getPost/{{ $post->post_id }}'">
                                 <i class="bi bi-bookmark" style="font-size: 15px;"></i>
                                 <span>More Info</span>
                             </div>
@@ -62,8 +70,8 @@
                                 <i class="bi bi-eye-slash" style="font-size: 15px;"></i>
                                 <span>Hide</span>
                             </div>
-                            <div class="more-option">
-                                <i class="bi bi-exclamation-triangle-fill" style="font-size: 15px;"></i>
+                            <div class="more-option" onclick="window.location.href = '/getBusiness/{{ $post->businessId }}'">
+                                <i class="bi bi-exclamation-triangle-fill" style="font-size: 15px;" ></i>
                                 <span>Report</span>
                             </div>
                         </div>
@@ -75,48 +83,41 @@
                     </div>
                     <div class="post-side">
                         <h3 class="post-title">{{ $post->title }}</h3>
-                        <p class="cateogory-event">{{ $post->category }}</p>
+                        <p class="cateogory-event">{{ $post->business_type }}</p>
                         <p class="post-description">
-                            {!! $post->description !!}
+                            {!! $post->post_description !!}
+                            @if (strlen($post->post_description) > 200)
+                                <div class="post-side-overlay">
+                                    <p class="read-more" onclick="readMore(this)">Read More...</p>
+                                </div>
+                            @endif
                         </p>
                     </div>
                 </div>
                 <div class="post-footer">
-                    <div class="post-likes">
-                        <p class="post-likes-desc">
-                            Price :
-                        </p>
-                        <span>
-                            @if ($post->price == 0)
-                                Free
-                            @else
-                                {{ $post->price }} $
-                            @endif
-                            </span>
+                    <div class="post-likes" onclick="likeWithAjax({{ $post->post_id }},this)">
+                        @if ($post->liked)
+                            <i class="bi bi-heart-fill like-btn" style="color: red"></i>
+                            <span>{{ $post->likes }}</span>
+                        @else
+                            <i class="bi bi-heart like-btn"></i>
+                            <span>{{ $post->likes }}</span>
+                        @endif 
                     </div>
-                    <div class="post-likes">
-                        <p class="post-likes-desc">
-                            Empty Spots :
-                        </p>
-                        <span>{{ $post->spots }}</span>
+                    <div class="post-likes" onclick="showNote(this)">
+                        <i class="bi bi-question-circle question-btn" ></i>
+                        <span>Send a note</span>
                     </div>
-                    <div class="post-likes">
-                        <p class="post-likes-desc">
-                            Total Spots :
-                        </p>
-                        <span>{{ $post->places }}</span>
-                    </div>
-                    <div class="post-likes">
-                        <p class="post-likes-desc">
-                            {{ number_format(100 - ($post->spots * 100 / $post->places), 2) }}% Full
-                        </p>
-                        <div class="slider-per">
-                            <div class="per" style="width: {{ 100 - ( $post->spots * 100 / $post->places ) }}%"></div>
-                        </div>
+                    <div class="post-note">
+                        <form class="note-form" method="post">
+                            <input type="text" class="note-inp" placeholder="Send a note or a question ...">
+                            <button class="note-btn"><i class="bi bi-send" style="font-size: 18px;"></i></button>
+                        </form>
                     </div>
                 </div>
             </div>
             @endforeach
+            {{ $posts->links() }}
             @if (count($posts) == 0)
                 <div class="post">
                     <div class="no-events">

@@ -56,23 +56,27 @@
             </div>
             <div class="main-side" id="main-side">
                 <div class="side-option" onclick="window.location.href='/stats'">
-                    <i class="bi bi-bar-chart-line" style="font-size: 20px;"></i>
+                    <i class="bi bi-bar-chart-line" style="font-size: 25px;"></i>
                     <span>statistics</span>
                 </div>
                 <div class="side-option" onclick="window.location.href='/users'">
-                    <i class="bi bi-person-fill" style="font-size: 20px;"></i>
+                    <i class="bi bi-person-fill" style="font-size: 25px;"></i>
                     <span>Users</span>
                 </div>
                 <div class="side-option" onclick="window.location.href='/allposts'">
-                    <i class="bi bi-file-post" style="font-size: 20px;"></i>
+                    <i class="bi bi-file-post" style="font-size: 25px;"></i>
                     <span>Posts</span>
                 </div>
                 <div class="side-option" onclick="window.location.href='/business'">
-                    <i class="bi bi-briefcase-fill" style="font-size: 20px;"></i>
+                    <i class="bi bi-briefcase-fill" style="font-size: 25px;"></i>
                     <span>Businesses</span>
                 </div>
+                <div class="side-option" onclick="window.location.href='/reports'">
+                    <i class="bi bi-flag" style="font-size: 25px;"></i>
+                    <span>Reports</span>
+                </div>
                 <div class="side-option" onclick="window.location.href='/settings'">
-                    <i class="bi bi-gear" style="font-size: 20px;"></i>
+                    <i class="bi bi-gear" style="font-size: 25px;"></i>
                     <span>Settings</span>
                 </div>
             </div>
@@ -91,7 +95,6 @@
             </div>
             <div class="modal-body">
                 <p class="modal-description" id="alert-message">{{ session('message') }}</p>
-                <p class="event-description" id="event-details"></p>
             </div>
             <div class="modal-footer">
                 <button class="modal-buttons" id="reserve-btn" onclick="this.parentNode.parentNode.parentNode.style.display = 'none'">Ok</button>
@@ -110,7 +113,9 @@
                 </div>          
             </div>
             <img src="assets/s1.jfif" alt="" class="image-big" id="display-image">
+        </div>
     </div>
+    <div class="protection" id="protection"></div>
 </body>
 </html>
 <script src="js/script.js" defer></script>

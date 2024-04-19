@@ -128,13 +128,38 @@ function searchAjax(element) {
     };
     xhr.send();
 }
+var side;
 
-let side = true;
+if (localStorage.getItem('side') == null) {
+    localStorage.setItem('side', 'false');
+    side = false;
+}
+if (localStorage.getItem('side') == 'true') {
+    let mainPart = document.getElementById('main-side');
+    let allSide = document.getElementById('all-side');
+    let btn = document.querySelector('.menu-btn');
+    btn.style.transition = '0s';
+    allSide.style.transition = '0s';
+    mainPart.style.transition = '0s';
+    btn.style.width='125px';
+    allSide.style.width = '250px';
+    mainPart.querySelectorAll('span').forEach(element => {
+        element.style.display = 'inline';
+    });
+    mainPart.querySelectorAll('.side-option').forEach(element => {
+        element.style.justifyContent = 'unset';
+    });
+    side = true;
+    localStorage.setItem('side', 'true');
+}
 let drop = false;
 function shrinkSide(btn) {
     let mainPart = document.getElementById('main-side');
     let allSide = document.getElementById('all-side');
     if (side) {
+        btn.style.transition = '0.3s';
+        allSide.style.transition = '0.3s';
+        mainPart.style.transition = '0.5s';
         btn.style.width='50px';
         allSide.style.width = '50px';
         mainPart.querySelectorAll('span').forEach(element => {
@@ -146,7 +171,11 @@ function shrinkSide(btn) {
             });
         }, 300);
         side = false;
+        localStorage.setItem('side', 'false');
     } else {
+        btn.style.transition = '0.3s';
+        allSide.style.transition = '0.3s';
+        mainPart.style.transition = '0.5s';
         btn.style.width='125px';
         allSide.style.width = '250px';
         mainPart.querySelectorAll('span').forEach(element => {
@@ -156,11 +185,26 @@ function shrinkSide(btn) {
             element.style.justifyContent = 'unset';
         });
         side = true;
+        localStorage.setItem('side', 'true');
     }
 }
-if (shrinkSide) {
-    shrinkSide(document.querySelector('.menu-btn'));
+let locationHref = window.location.href.split('/')[3].split('/')[0];
+
+console.log(locationHref);
+if (locationHref == '') {
+    document.querySelector('.-home').classList.add('active');
+} else if (locationHref == 'posts') {
+    document.querySelector('.-posts').classList.add('active');
+} else if (locationHref == 'restaurants') {
+    document.querySelector('.-restaurants').classList.add('active');
+} else if (locationHref == 'coffeeshops') {
+    document.querySelector('.-coffeeshops').classList.add('active');
+} else if (locationHref == 'myReservations') {
+    document.querySelector('.-myreservations').classList.add('active');
+} else {
+    document.querySelector('.-home').classList.add('active');
 }
+
 let more = false;
 
 function showMore(element) {
@@ -539,10 +583,195 @@ function addImage(el) {
         document.getElementById('image').required = false;
     }
 }
-function showMenuItem(image,title,description,price) {
-    document.getElementById('menu-image').style.backgroundImage = "url('" + image + "')";
-    document.getElementById('menu-title').innerText = title;
-    document.getElementById('menu-description').innerText = description;
-    document.getElementById('menu-price').innerText = price + ' $';
+function showMenuItem(title,description,price,id) {
+    document.getElementById('menu-id').value = id;
+    document.getElementById('item-name').value = title;
+    document.getElementById('item-desc').innerText = description;
+    document.getElementById('item-price').value = price;
     document.querySelector('.menu-item-modal').style.display = 'block';
+    document.getElementById('deleteBTN').addEventListener('click', function() {
+        let xhr = new XMLHttpRequest();
+        xhr.open('GET', `/deleteMenuItem/${id}`, true);
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                if (this.responseText == 'Item Deleted') {
+                    window.location.reload();
+                } else {
+                    console.log('failed to delete item');
+                }
+            } else {
+                console.log('Failed to send request');
+            }
+        };
+        xhr.send();
+    });
+}
+function showMenuItemBuy(title,description,price,id) {
+    document.getElementById('item-name').innerText = title;
+    document.getElementById('item-desc').innerText = description;
+    document.getElementById('item-price').innerText = price + "$";
+    document.querySelector('.menu-item-modal').style.display = 'block';
+}
+var bannerModal = false;
+function showBannerModal() {
+    if (bannerModal) {
+        document.getElementById('protection').style.display = 'none';
+        document.querySelector('.banner-modal').style.display = 'none';
+        bannerModal = false;
+    } else {
+        document.getElementById('protection').style.display = 'block';
+        document.querySelector('.banner-modal').style.display = 'block';
+        bannerModal = true;
+    }
+}
+
+var info = false;
+function showInfoModal() {
+    if (info) {
+        document.getElementById('protection').style.display = 'none';
+        document.querySelector('.info-modal').style.display = 'none';
+        info = false;
+    } else {
+        document.getElementById('protection').style.display = 'block';
+        document.querySelector('.info-modal').style.display = 'block';
+        info = true;
+    }
+}
+function previewSlide(x,y) {
+    let inp = document.getElementById(`swiper${x}-slide${y}`);
+    let image = document.getElementById(`swiper${x}-image${y}`);
+      var file = inp.files[0];
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        image.src = e.target.result;
+      };
+
+      reader.readAsDataURL(file);
+}
+function deleteSlide(x,y) {
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', `/deleteSlide/${x},${y}`, true);
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            if (this.responseText == 'Image Deleted') {
+                let input = document.querySelector(`#swiper${x}-slide${y}`);
+                document.querySelector(`#swiper${x}-image${y}`).src = '../assets/noimage.png';
+                input.type = '';
+                input.type = 'file';
+            } else {
+                console.log('failed to delete slide');
+            }
+        } else {
+            console.log('Failed to send request');
+        }
+    };
+    xhr.send();
+}
+function showSliders() {
+    document.getElementById('protection').style.display = 'block';
+    document.querySelector('.sliders-modal').style.display = 'block';
+}
+function hideProtection() {
+    document.getElementById('protection').style.display = 'none';
+}
+function showProtection() {
+    document.getElementById('protection').style.display = 'block';
+}
+function showMenuEdit() {
+    if (document.getElementById('editMenu').style.display == 'block') {
+        document.getElementById('editMenu').style.display = 'none';
+    } else {
+        document.getElementById('editMenu').style.display = 'block';
+    }
+}
+function showMenuAdd() {
+    if (document.getElementById('addMenu').style.display == 'block') {
+        document.getElementById('addMenu').style.display = 'none';
+    } else {
+        document.getElementById('addMenu').style.display = 'block';
+    }
+}
+function addMenuItem() {
+    let menuItems = document.querySelectorAll('.hack').length + 1;
+    let html;
+    if (menuItems > 20) {
+        document.getElementById('menu-error').innersText = 'You can only add 20 items';
+    } else {
+        html = `
+        <div class="item-wrapper">
+            <p style="font-size: 16px">Item ${menuItems}</p>
+            <label for="item${menuItems}" class="labels">Name & Price</label>
+            <div class="item-container">
+                <input type="text" class="menu-item-inp hack" name="item_${menuItems}" id="item${menuItems}" required placeholder="Item Name" value="">
+                <input type="number" class="menu-item-price-inp" name="price_${menuItems}" id="price${menuItems}" required placeholder="Item Price" value="">
+                <input type="text" class="menu-item-price-inp" name="price_${menuItems}" id="price${menuItems}" required placeholder="Item Price Currency" value="$" readonly style="width: 35px">
+            </div>
+            <label for="description_${menuItems}" class="labels">Description</label>
+            <textarea cols="30" rows="10" class="aria-edit" name="description_${menuItems}" id="description${menuItems}"></textarea>
+            <input type="file" name="image${menuItems}" id="image${menuItems}">
+        </div>
+        `;
+        document.getElementById('inserter').insertAdjacentHTML('beforebegin', html);
+    }
+}
+function placeCounter(operation,base) {
+    let type = operation;
+    if ( type == 'minus') {
+        if (document.querySelector('#places-count').value > 1) {
+            document.querySelector('#places-count').value = parseInt(document.querySelector('#places-count').value) - 1
+        }
+    } else {
+        if (document.querySelector('#places-count').value < 6) {
+            document.querySelector('#places-count').value = parseInt(document.querySelector('#places-count').value) + 1;
+        }
+    }
+    document.querySelector('#price-price').innerText = base * parseInt(document.querySelector('#places-count').value);
+}
+function showNextMenu() {
+    document.getElementById('cols2').style.display = 'flex';
+    document.getElementById('cols1').style.display = 'none';
+}
+function showPrevMenu() {
+    document.getElementById('cols1').style.display = 'flex';
+    document.getElementById('cols2').style.display = 'none';
+}
+function showReserveModal() {
+    document.querySelector('.reserveModal').style.display = 'block';
+    document.getElementById('protection').style.display = "block";
+}
+function reportBusiness(id,btn) {
+    btn.innerHTML = `<div class="loader"></div>`;
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', `/reportBusiness/${id}`, true);
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            if (this.responseText == 'Reported') {
+                btn.innerHTML = 'Reported';
+                btn.disabled = true;
+            } else if (this.responseText == 'Already reported'){
+                btn.innerHTML = 'Already Reported';
+                btn.disabled = true;
+            }
+        } else {
+            console.log('Failed to send request');
+        }
+    };
+    xhr.send();
+}
+function likeWithAjax(id,btn) {
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', `/likePost/${id}`, true);
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            if (this.responseText.includes('liked')) {
+                btn.innerHTML = '<i class="bi bi-heart-fill like-btn" style="color:red;"></i>' +  this.responseText;
+            } else if (!this.responseText.includes('liked')) {
+                btn.innerHTML = '<i class="bi bi-heart like-btn"></i>' + this.responseText;
+            }
+        } else {
+            console.log('Failed to send request');
+        }
+    };
+    xhr.send();
 }

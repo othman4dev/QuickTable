@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ asset('css/style.css')}}">
-    <link rel="stylesheet" href="{{ asset('css/responsive2.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="shortcut icon" href="{{asset('assets/LOGO.svg')}}" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
@@ -14,15 +13,18 @@
     <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
     <script src="https://cdn.tiny.cloud/1/w5o6851coln6uxz4eqge6bq0qi2ez0n5zwyprq67sybzjlf9/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link  href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/responsive2.css') }}">
     <title>QuickTable | Reserve  It Now</title>
 </head>
 <body>
     <header class="index-header">
-        <h1 class="login-h1">Quick<img src="assets/table.svg" class="table-icon" alt="">able</h1>
+        <h1 class="login-h1">Quick<img src="{{ asset('assets/table.svg') }}" class="table-icon" alt="">able</h1>
         <div class="search-bar">
-            <input type="text" class="search" onkeyup="searchAjax(this)" placeholder="Search for events">
+            <input type="text" class="search" onkeyup="searchAjax(this)" placeholder="Search for Restaurants, Coffee Shops...">
             <button class="search-btn"><i class="bi bi-search"></i></button>
             <div class="search-results" id="search-results">
                 <div class="search-loading">
@@ -69,13 +71,21 @@
                 <i class="bi bi-house" style="font-size: 17px;"></i>
                 <span>Home</span>
             </div>
+            <div class="mobile-option" onclick="window.location.href = '/restaurants'">
+                <i class="bi bi-shop" style="font-size: 17px;"></i>
+                <span>Restaurants</span>
+            </div>
+            <div class="mobile-option" onclick="window.location.href = '/coffeeshops'">
+                <i class="bi bi-cup-hot-fill" style="font-size: 17px;"></i>
+                <span>Coffee Shops</span>
+            </div>
             <div class="mobile-option" onclick="window.location.href = '/posts'">
-                <i class="bi bi-shop-window" style="font-size: 17px;"></i>
+                <i class="bi bi-postcard" style="font-size: 17px;"></i>
                 <span>Posts</span>
             </div>
             <div class="mobile-option" onclick="window.location.href = '/myReservations'">
                 <i class="bi bi-ticket-detailed" style="font-size: 17px"></i>
-                <span>My Tickets</span>
+                <span>Reservations</span>
             </div>
             <div class="mobile-option">
                 <i class="bi bi-info-circle" style="font-size: 17px;" onclick="window.location.href='/help'"></i>
@@ -89,28 +99,36 @@
     </div>
     <main class="index-main">
         <section class="side-bar" id="all-side">
-            <div class="menu-btn" onclick="shrinkSide(this)">
+            <div class="menu-btn" onclick="shrinkSide(this,'0.3s')">
                 <i class="bi bi-list"></i>
             </div>
             <div class="main-side" id="main-side">
-                <div class="side-option" onclick="window.location.href = '/'">
-                    <i class="bi bi-house" style="font-size: 20px;"></i>
+                <div class="side-option -home" onclick="window.location.href = '/'">
+                    <i class="bi bi-house" style="font-size: 25px;"></i>
                     <span>Home</span>
                 </div>
-                <div class="side-option" onclick="window.location.href = '/posts'">
-                    <i class="bi bi-shop-window" style="font-size: 20px;"></i>
+                <div class="side-option -restaurants" onclick="window.location.href = '/restaurants'">
+                    <i class="bi bi-shop" style="font-size: 25px;"></i>
+                    <span>Restaurants</span>
+                </div>
+                <div class="side-option -coffeeshops" onclick="window.location.href = '/coffeeshops'">
+                    <i class="bi bi-cup-hot" style="font-size: 25px;"></i>
+                    <span>Coffee Shops</span>
+                </div>
+                <div class="side-option -posts" onclick="window.location.href = '/posts'">
+                    <i class="bi bi-postcard" style="font-size: 25px;"></i>
                     <span>Posts</span>
                 </div>
-                <div class="side-option" onclick="window.location.href = '/myReservations'">
-                    <i class="bi bi-ticket-detailed" style="font-size: 20px"></i>
-                    <span>My Tickets</span>
+                <div class="side-option -myreservations" onclick="window.location.href = '/myReservations'">
+                    <i class="bi bi-ticket-detailed" style="font-size: 25px"></i>
+                    <span>Reservations</span>
                 </div>
-                <div class="side-option">
-                    <i class="bi bi-info-circle" style="font-size: 20px;" onclick="window.location.href='/help'"></i>
+                <div class="side-option -help">
+                    <i class="bi bi-info-circle" style="font-size: 25px;" onclick="window.location.href='/help'"></i>
                     <span>Help</span>
                 </div>
-                <div class="side-option">
-                    <i class="bi bi-gear" style="font-size: 20px;" onclick="window.location.href='/settings'"></i>
+                <div class="side-option -settings">
+                    <i class="bi bi-gear" style="font-size: 25px;" onclick="window.location.href='/settings'"></i>
                     <span>Settings</span>
                 </div>
             </div>
@@ -147,13 +165,68 @@
                 </div>          
             </div>
             <img src="assets/s1.jfif" alt="" class="image-big" id="display-image">
+        </div>
     </div>
-    
+    <section class="reserveModal">
+        <div class="modal-header">
+            <h2 class="modal-title" id="modal-title">Reserve Ticket</h2>
+            <div class="closer" onclick="this.parentNode.parentNode.style.display = 'none';hideProtection()">
+                <i class="bi bi-x-lg"></i>
+            </div>
+        </div>
+        <form action="/reserveTable" method="POST"  class="modal-body">
+            <div class="reserve-texts">
+                <h2  id="business-name">{{ @$business->name }}</h2>
+                <p class="business-type">{{ @$business->business_type }}</p>
+            </div>
+            <label for="places-count" class="labels">Number Of Seats</label>
+            <div class="reserve-texts">
+                <div class="place-counter">
+                    <div class="counter-btn" onclick="placeCounter('minus',{{ @$business->base_price ? : 1 }})">-</div>
+                    <input type="number" name="places" id="places-count" class="places-count" readonly value="1" required min="1" max="6">
+                    <div class="counter-btn" onclick="placeCounter('add',{{ @$business->base_price ? : 1 }})">+</div>
+                </div>
+                <div class="price-tag">
+                    <span id="price-tag">Price: <span id="price-price">{{ @$business->base_price ? : 1 }}</span> $</span>
+                    <label class="labels">{{ @$business->base_price ? : 1 }} $ / Seat</label>
+                </div>
+            </div>
+            <input type="hidden" name="business_id" value="{{ @$business->id }}">
+        </form>
+        <div class="modal-footer" style="padding: 7px">
+            <button class="menu-item-btn" onclick="this.parentNode.parentNode.style.display = 'none';hideProtection()">Cancel</button>
+            <button class="menu-item-btn" id="reserve-btn" onclick="reserveTable()">Reserve</button>
+        </div>
+    </section>
+    <div class="protection" id="protection"></div>
+    <div class="menu-item-modal" style="font-family: 'Reem Kufi', sans-serif !important;">
+        <div class="menu-item-header">
+            <div class="closer" onclick="this.parentNode.parentNode.style.display = 'none';hideProtection()">                
+                <i class="bi bi-x-lg"></i>
+            </div>
+        </div>
+        <div class="menu-item-body">
+            <div class="menu-item-image" id="menu-image">
+
+            </div>
+            <div class="menu-item-texts">
+                <h2 class="menu-item-title" id="item-name">Title</h2>
+                <p class="menu-item-description" id="item-desc">Description</p>
+            </div>
+            <div class="menu-item-price">
+                <h2 class="menu-item-price-value" id="item-price">15$</h2>
+            </div>
+        </div>
+        <div class="menu-item-footer">
+            <button class="menu-item-btn">Cancel</button>
+            <button class="menu-item-btn">Buy</button>
+        </div>
+    </div>
 </body>
 </html>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
 <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
-<script src="js/script.js" defer></script>
+<script src="{{ asset('js/script.js') }}" defer></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     AOS.init();

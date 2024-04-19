@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('background_image');
             $table->string('business_type');
             $table->string('status');
+            $table->integer('base_price');
+            $table->integer('reports')->default(0);
             $table->unsignedBigInteger('owner_id');
             $table->foreign('owner_id')->references('id')->on('users');
             $table->dateTime('created_at')->default(now());

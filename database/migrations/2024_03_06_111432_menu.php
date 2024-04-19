@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->text('description');
-            $table->string('image');
             $table->integer('price');
             $table->unsignedBigInteger('business_id');
             $table->foreign('business_id')->references('id')->on('business');

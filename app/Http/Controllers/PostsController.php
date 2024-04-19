@@ -11,24 +11,17 @@ class PostsController extends Controller
     public static function allPosts() {
         if (session('user') == null) {
             $posts = DB::table('posts')
-                ->select('posts.*', 'users.*', 'reservation.*', 'posts.id as post_id', 'reservation.id as reserved')
-                ->leftJoin('users', 'users.id', '=', 'posts.business_id')
-                ->leftJoin('bussiness', 'bussiness.id', '=', 'posts.business_id')
-                ->leftJoin('reservation', function ($join) {
-                    $join->on('reservation.business_id', '=', 'posts.id')
-                        ->where('reservation.user_id', '=', 0);
-                })
+                ->select('posts.*', 'users.*','business.*', 'posts.id as post_id', 'business.id as businessId' , 'posts.description as post_description' , 'users.pp as owner_pp')
+                ->leftJoin('business', 'business.id', '=', 'posts.business_id')
+                ->leftJoin('users', 'users.id', '=', 'business.owner_id')
                 ->where('deleted', 0)
                 ->simplePaginate(5);
         } else {
             $posts = DB::table('posts')
-            ->select('posts.*', 'users.*', 'reservation.*' ,'business.*', 'posts.id as post_id', 'reservation.id as reserved')
-            ->leftJoin('users', 'users.id', '=', 'posts.business_id')
+            ->select('posts.*', 'users.*','business.*', 'likes.post_id as liked' , 'business.id as businessId' , 'posts.id as post_id', 'posts.description as post_description', 'users.pp as owner_pp')
             ->leftJoin('business', 'business.id', '=', 'posts.business_id')
-            ->leftJoin('reservation', function ($join) {
-                $join->on('reservation.business_id', '=', 'posts.id')
-                    ->where('reservation.user_id', '=', session('user')->id);
-            })
+            ->leftJoin('users', 'users.id', '=', 'business.owner_id')
+            ->leftJoin('likes', 'likes.post_id', '=', 'posts.id')
             ->where('deleted', 0)
             ->simplePaginate(5);
         }
@@ -96,19 +89,44 @@ class PostsController extends Controller
         ]);
         return redirect('/allposts');
     }
-    public static function getpost($id) {
-        $post = DB::table('posts')
-            ->select('posts.*', 'users.*', 'categories.*', 'reservation.*', 'posts.id as post_id', 'reservation.id as reserved')
-            ->leftJoin('users', 'users.id', '=', 'posts.business_id')
-            ->leftJoin('categories', 'categories.id', '=', 'posts.category_id')
-            ->leftJoin('reservation', function ($join) {
-                $join->on('reservation.post_id', '=', 'posts.id')
-                    ->where('reservation.user_id', '=', 0);
-            })
-            ->where('posts.id', $id)
-            ->where('deleted', 0)
-            ->first();
-        return redirect('/post')->with(compact('post'));
+    public static function getBusiness($id) {
+        $business = DB::table('business')
+        ->select('business.*', 'users.*','business.id as businessId')
+        ->leftJoin('users', 'users.id', '=', 'business.owner_id')
+        ->where('business.id', $id)
+        ->first();
+        $slider1_title = DB::table('slides')->where('business_id', $business->businessId)->where('slider_index' , 1)->first()->title;
+        $slider2_title = DB::table('slides')->where('business_id', $business->businessId)->where('slider_index' , 2)->first()->title;
+        $slides2 = DB::table('slides')->where('business_id', $business->businessId)->where('slider_index' , 2)->get();
+        $myposts = DB::table('posts')
+        ->select('posts.*', 'likes.post_id as liked', 'posts.id as post_id')
+        ->leftJoin('likes', 'likes.post_id', '=', 'posts.id')
+        ->where('business_id', $business->businessId)->get();
+        $menu = DB::table('menu')->where('business_id', $business->businessId)->get();
+        $postCount = DB::table('posts')->where('business_id', $business->businessId)->count();
+        $slides = DB::table('slides')->where('business_id', $business->businessId)->where('slider_index' , 1)->get();
+        $images = [];
+        foreach ($slides as $slide) {
+            if ($slide->image != null) {
+                array_push($images, $slide->image);
+            } else {
+                array_push($images, '../assets/noimage.png');
+            }
+        }
+        $slides2 = DB::table('slides')->where('business_id', $business->businessId)->where('slider_index' , 2)->get();
+        $images2 = [];
+        foreach ($slides2 as $slide) {
+            if ($slide->image != null) {
+                array_push($images2, $slide->image);
+            } else {
+                array_push($images2, '../assets/noimage.png');
+            }
+        }
+        if (session('user')->role == 'Admin') {
+            return view('admin.business', ['business' => $business, 'slider1_title' => $slider1_title, 'slider2_title' => $slider2_title, 'slider1' => $images, 'slider2' => $images2, 'myposts' => $myposts, 'menu' => $menu , 'postCount' => $postCount]);
+        } else  {
+            return view('user.business', ['business' => $business, 'slider1_title' => $slider1_title, 'slider2_title' => $slider2_title, 'slider1' => $images, 'slider2' => $images2, 'myposts' => $myposts, 'menu' => $menu , 'postCount' => $postCount]);
+        }
     }
     public static function post() {
         $post = session('post');
@@ -117,18 +135,13 @@ class PostsController extends Controller
     
     public static function search($search) {
         $posts = DB::table('posts')
-            ->select('posts.*', 'users.*', 'categories.*', 'reservation.*', 'posts.id as post_id', 'reservation.id as reserved')
-            ->leftJoin('users', 'users.id', '=', 'posts.business_id')
-            ->leftJoin('categories', 'categories.id', '=', 'posts.category_id')
-            ->leftJoin('reservation', function ($join) {
-                $join->on('reservation.post_id', '=', 'posts.id')
-                    ->where('reservation.user_id', '=', 0);
-            })
+            ->select('posts.*', 'users.*','business.*', 'business.id as businessId' , 'posts.id as post_id', 'posts.description as post_description', 'users.pp as owner_pp')
+            ->leftJoin('business', 'business.id', '=', 'posts.business_id')
+            ->leftJoin('users', 'users.id', '=', 'business.owner_id')
             ->where(function ($query) use ($search) {
-                $query->where('title', 'like', '%'.$search.'%')
-                      ->orWhere('description', 'like', '%'.$search.'%');
+                $query->where('posts.title', 'like', '%'.$search.'%')
+                      ->orWhere('posts.description', 'like', '%'.$search.'%');
             })
-            ->where('approved', 1)
             ->where('deleted', 0)
             ->get();
         $result = "";
@@ -142,16 +155,16 @@ class PostsController extends Controller
         foreach ($posts as $post) {
             $result = $result ."
             <div class='result'>
-                <div class='col-1-res'>
+                <div class='col-1-res' onclick='window.location.href =\"/getPost/".$post->post_id."\"' style='cursor:pointer;'>
                     <div class='result-image'>
-                        <div class='img-result' style='background-image: url()'></div>
+                        <div class='img-result' style='background-image: url(". $post->owner_pp .");background-position:center;background-size:cover'></div>
                     </div>
                     <div class='result-texts'>
                         <h3 class='result-title'>".$post->title."</h3>
                         <p class='result-description'>".substr(strip_tags($post->description), 0, 20)."</p>
                     </div>
                 </div>
-                <div class='link-to-post' onclick=\"window.location.href = '/getpost/".$post->post_id."'\">
+                <div class='link-to-post' onclick=\"window.location.href = '/getBusiness/".$post->businessId."'\">
                     <i class='bi bi-arrow-right-circle-fill'></i>
                 </div>
             </div>
@@ -159,5 +172,74 @@ class PostsController extends Controller
         }
     }
         echo $result;
+    }
+    public static function getPost($id) {
+        $post = DB::table('posts')
+        ->select('posts.*', 'users.*','business.*', 'business.id as businessId' , 'posts.id as post_id', 'posts.description as post_description', 'users.pp as owner_pp')
+        ->leftJoin('business', 'business.id', '=', 'posts.business_id')
+        ->leftJoin('users', 'users.id', '=', 'business.owner_id')
+        ->where('posts.id', $id)
+        ->first();
+        $postCount = DB::table('posts')->where('business_id', $post->businessId)->count();
+        return view('user.post', ['post' => $post, 'postCount' => $postCount]);
+    }
+    public static function businesses() {
+        $businesses = DB::table('business')
+        ->select('business.*', 'users.*', 'business.id as businessId')
+        ->leftJoin('users', 'users.id', '=', 'business.owner_id')
+        ->get();
+        return $businesses;
+    }
+    public static function reportBusiness($id) {
+        $existe = DB::table('reports')->where('user_id', session('user')->id)->where('business_id', $id)->first();
+        if ($existe) {
+            echo 'Already reported';
+        } else {
+            DB::table('reports')->insert([
+                'user_id' => session('user')->id,
+                'business_id' => $id,
+                'reason' => 'Inappropriate content',
+                'created_at' => now()
+            ]);
+            echo 'Reported';
+        }
+    }
+    public static function restaurants() {
+        $restaurants = DB::table('business')
+        ->select('business.*', 'users.*', 'business.id as businessId')
+        ->leftJoin('users', 'users.id', '=', 'business.owner_id')
+        ->where('business.business_type', 'Restaurant')
+        ->get();
+        return view('user.restaurants', ['businesses' => $restaurants]);
+    }
+    public static function coffeeshops() {
+        $coffeeshops = DB::table('business')
+        ->select('business.*', 'users.*', 'business.id as businessId')
+        ->leftJoin('users', 'users.id', '=', 'business.owner_id')
+        ->where('business.business_type', 'Coffee Shop')
+        ->get();
+        return view('user.coffeeshops', ['businesses' => $coffeeshops]);
+    }
+    public static function likePost($id) {
+        $like = DB::table('likes')->where('user_id', session('user')->id)->where('post_id', $id)->first();
+        if ($like) {
+            DB::table('likes')->where('user_id', session('user')->id)->where('post_id', $id)->delete();
+            $likes = DB::table('likes')->where('post_id', $id)->count();
+            DB::table('posts')->where('id', $id)->update([
+                'likes' => $likes
+            ]);
+            echo '<span>'. $likes . '</span>';
+        } else {
+            DB::table('likes')->insert([
+                'user_id' => session('user')->id,
+                'post_id' => $id,
+                'created_at' => now()
+            ]);
+            $likes = DB::table('likes')->where('post_id', $id)->count();
+            DB::table('posts')->where('id', $id)->update([
+                'likes' => $likes
+            ]);
+            echo '<span  class="-liked">'. $likes . '</span>';
+        }
     }
 }

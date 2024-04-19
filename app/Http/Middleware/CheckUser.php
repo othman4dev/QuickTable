@@ -10,7 +10,7 @@ class CheckUser
     public function handle(Request $request, Closure $next)
     {
         if (! session('user')) {
-            dd('User not logged in', session('user'), $request->path());
+            return redirect('/login');
         }
         return $next($request);
     }
