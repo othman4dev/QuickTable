@@ -17,6 +17,7 @@
             <div class="nearby">
                 <h1>Nearby</h1>
             </div>
+            
             @foreach ($posts as $post)
             <div class="nearby-option" onclick="window.location.href='/getEvent/{{ $post->event_id}}'">
                 <div class="nearby-option-logo">

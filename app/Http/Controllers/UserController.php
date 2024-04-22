@@ -6,9 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\EmailController;
-
+use Laravel\Cashier\Billable;
 class UserController extends Controller
 {
+    use Billable;
     public static function profile() {
         if (session('user') == null) {
             redirect('/login');
@@ -21,9 +22,9 @@ class UserController extends Controller
             redirect('/login');
         }
         $reservations = DB::table('reservation')
-            ->select('posts.*', 'reservation.*', 'users.*', 'reservation.id as reservation_id' ,'posts.id as post_id')
-            ->leftJoin('posts', 'posts.id', '=', 'reservation.business_id')
-            ->leftJoin('users', 'users.id', '=', 'posts.business_id')
+            ->select('reservation.*', 'menu.*', 'business.name as business_name', 'menu.name as item_name', 'reservation.created_at as reservation_date', 'business.background_image as business_image')
+            ->join('menu', 'menu.id', '=', 'reservation.item_id')
+            ->join('business', 'business.id', '=', 'reservation.business_id')
             ->where('reservation.user_id', session('user')->id)
             ->get();
         return view('user.myreservations', ['reservations' => $reservations]);

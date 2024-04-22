@@ -8,8 +8,8 @@
         <table id="myTable" class="display" >
             <thead>
                 <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
+                    <th>Profile Picture</th>
+                    <th>Full Name</th>
                     <th>Email</th>
                     <th>Role</th>
                     <th>Status</th>
@@ -19,8 +19,10 @@
             <tbody>
                 @foreach ($users as $user)
                 <tr data-aos="fade-up" data-aos-anchor-placement="top-bottom">
-                    <td>{{ $user->firstname }}</td>
-                    <td>{{ $user->lastname }}</td>
+                    <td >
+                        <img src="{{ $user->pp }}" style="height:40px;width:40px;border-radius:50%; " alt="">
+                    </td>
+                    <td>{{ $user->firstname }} {{ $user->lastname }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->role }}</td>
                     <td>
@@ -52,9 +54,7 @@
 <script>
     $(document).ready(function() {
     $('#myTable').DataTable({
-        "columnDefs": [
-            { "width": "15%", "targets": 5 }  // Third column width as 50%
-        ]
+        
     });
 });
 </script>

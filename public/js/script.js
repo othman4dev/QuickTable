@@ -420,28 +420,28 @@ function addCat() {
         document.querySelector('#addModal').style.display = 'none';
     }
 }
-function showTicket(ele,title,category,date,time,price,token,location) {
+function showTicket(ele,business,item,date,quantity,price,token,username,expiration,image) {
+    document.getElementById('protection').style.display = 'block';
     document.querySelector('#ticketModal').style.display = 'flex';
-    document.getElementById('ticketModal').querySelector('#event_title').innerText = title;
-    document.getElementById('ticketModal').querySelector('#event_category').innerText = category;
+    document.getElementById('ticketModal').querySelector('#event_title').innerText = business;
+    document.getElementById('ticketModal').querySelector('#event_category').innerText = item;
+    document.getElementById('ticket-image').style.backgroundImage = image;
     const eventDate = new Date(date);
+    const eventExpiration = new Date(expiration);
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const options2 = { year: 'numeric', month: 'numeric', day: 'numeric'};
+    const formattedDate2 = eventExpiration.toLocaleDateString(undefined, options2);
     const formattedDate = eventDate.toLocaleDateString(undefined, options);
     document.getElementById('ticketModal').querySelector('#event_date').innerText = formattedDate;
-    const formattedTime = time.slice(0, 5);
-    const formatted12h = formattedTime.replace(/^(\d{2}):(\d{2})$/, function(_, hours, minutes) {
-        const suffix = hours >= 12 ? 'PM' : 'AM';
-        const twelveHour = hours % 12 || 12;
-        return twelveHour + ':' + minutes + ' ' + suffix;
-    });
-    document.getElementById('ticketModal').querySelector('#event_time').innerText = formattedTime + ' / ' + formatted12h;
-    document.getElementById('ticketModal').querySelector('#event_time2').innerText = formattedTime + ' / ' + formatted12h;
+    document.getElementById('ticketModal').querySelector('#event_time').innerText = username;
+    document.getElementById('ticketModal').querySelector('#event_time2').innerText = "Expires : " + formattedDate2;
+    document.getElementById('ticketModal').querySelector('#event_date').innerText = formattedDate;
     document.getElementById('ticketModal').querySelector('#event_price').innerText = price + ' $';
-    document.getElementById('ticketModal').querySelector('#event_location').innerText = location;
+    document.getElementById('ticketModal').querySelector('#event_location').innerText = quantity + ' Items / Seats';
     document.getElementById('ticketModal').querySelector('#event_token').innerHTML = '#' + token;
     document.getElementById('ticketModal').querySelector('#event_token2').innerHTML = '#' + token;
     let qrcode = document.getElementById('qrcode');
-    const formattedTitle = title.replace(/\s/g, '_');
+    const formattedTitle = business.replace(/\s/g, '_');
     document.getElementById('downloadBTN').onclick = function() {
         
         downloadTicket(formattedTitle);
@@ -607,6 +607,8 @@ function showMenuItem(title,description,price,id) {
     });
 }
 function showMenuItemBuy(title,description,price,id) {
+    document.getElementById('inp-id').value = id;
+    document.getElementById('inp-price').value = price;
     document.getElementById('item-name').innerText = title;
     document.getElementById('item-desc').innerText = description;
     document.getElementById('item-price').innerText = price + "$";
@@ -727,6 +729,20 @@ function placeCounter(operation,base) {
         }
     }
     document.querySelector('#price-price').innerText = base * parseInt(document.querySelector('#places-count').value);
+}
+function placeCounterBuy(operation) {
+    let base = document.querySelector('#price-price').innerText;
+    let type = operation;
+    if ( type == 'minus') {
+        if (document.querySelector('#places-count2').value > 1) {
+            document.querySelector('#places-count2').value = parseInt(document.querySelector('#places-count2').value) - 1;
+        }
+    } else {
+        if (document.querySelector('#places-count2').value < 6) {
+            document.querySelector('#places-count2').value = parseInt(document.querySelector('#places-count2').value) + 1;
+        }
+    }
+    document.querySelector('#price-price2').innerText = base * parseInt(document.querySelector('#places-count2').value);
 }
 function showNextMenu() {
     document.getElementById('cols2').style.display = 'flex';

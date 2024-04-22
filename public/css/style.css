@@ -1947,6 +1947,10 @@ input[type="file"]::file-selector-button:hover {
     background-color: #9b59b6;
     opacity: 0.7;
 }
+.pink {
+    background-color: #ff6f00;
+    opacity: 0.7;
+}
 .grey {
     color: #191919;
 }
@@ -1993,7 +1997,8 @@ input[type="file"]::file-selector-button:hover {
 	height: 250px;
 	width: 250px;
 	background-image: url("../assets/SIDE.svg");
-	background-size: contain;
+	background-size: cover;
+    background-position: center;
 	opacity: 0.85;
 }
 
@@ -2839,7 +2844,7 @@ button:disabled  {
 .modal-body {
     background-color: #C6C6C6;
 }
-#places-count {
+.places-count {
     background-color: #C6C6C6;
     height: 35px;
     font-size: 15px;

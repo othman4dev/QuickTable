@@ -64,7 +64,8 @@ class AdminController extends Controller
         $reservations = DB::table('reservation')->count();
         $posts = DB::table('posts')->count();
         $admins = DB::table('users')->where('role', 'Admin')->count();
-        return view('admin.stats', ['users' => $users, 'reservations' => $reservations, 'posts' => $posts , 'owners' => $owners , 'admins' => $admins]);
+        $reports = DB::table('reports')->count();
+        return view('admin.stats', ['users' => $users, 'reservations' => $reservations, 'posts' => $posts , 'owners' => $owners , 'admins' => $admins , 'reports' => $reports]);
     }
     public static function posts() {
         $posts = DB::table('posts')

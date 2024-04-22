@@ -183,7 +183,7 @@
             <div class="reserve-texts">
                 <div class="place-counter">
                     <div class="counter-btn" onclick="placeCounter('minus',{{ @$business->base_price ? : 1 }})">-</div>
-                    <input type="number" name="places" id="places-count" class="places-count" readonly value="1" required min="1" max="6">
+                    <input type="number" name="quantity" id="places-count" class="places-count" readonly value="1" required min="1" max="6">
                     <div class="counter-btn" onclick="placeCounter('add',{{ @$business->base_price ? : 1 }})">+</div>
                 </div>
                 <div class="price-tag">
@@ -199,7 +199,8 @@
         </div>
     </section>
     <div class="protection" id="protection"></div>
-    <div class="menu-item-modal" style="font-family: 'Reem Kufi', sans-serif !important;">
+    <form class="menu-item-modal" method="POST" action="/checkout" style="font-family: 'Reem Kufi', sans-serif !important;">
+        @csrf
         <div class="menu-item-header">
             <div class="closer" onclick="this.parentNode.parentNode.style.display = 'none';hideProtection()">                
                 <i class="bi bi-x-lg"></i>
@@ -209,19 +210,27 @@
             <div class="menu-item-image" id="menu-image">
 
             </div>
+            <input type="text" class="hidden" id="inp-id" name="id">
+            <input type="text" class="hidden" id="inp-price" name="price">
             <div class="menu-item-texts">
                 <h2 class="menu-item-title" id="item-name">Title</h2>
                 <p class="menu-item-description" id="item-desc">Description</p>
+                <div class="place-counter" style="padding: 15px">
+                    <div class="counter-btn" onclick="placeCounterBuy('minus')">-</div>
+                    <input type="number" name="quantity" id="places-count2" class="places-count" readonly value="1" required min="1" max="6">
+                    <div class="counter-btn" onclick="placeCounterBuy('add')">+</div>
+                </div>
             </div>
+            
             <div class="menu-item-price">
-                <h2 class="menu-item-price-value" id="item-price">15$</h2>
+                <h2 class="menu-item-price-value" id="item-price"><span id="price-price2">15</span>$</h2>
             </div>
         </div>
         <div class="menu-item-footer">
             <button class="menu-item-btn">Cancel</button>
             <button class="menu-item-btn">Buy</button>
         </div>
-    </div>
+    </form>
 </body>
 </html>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>

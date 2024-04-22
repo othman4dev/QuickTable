@@ -91,7 +91,7 @@
                             Items
                         </span>
                         @foreach ($menu->take(5) as $item) 
-                        <div class="menu-item" onclick="showMenuItem('{{ $item->name }}','{{ $item->description }}',{{ $item->price }} , {{ $item->id }});showProtection()">
+                        <div class="menu-item" onclick="showMenuItemBuy('{{ $item->name }}','{{ $item->description }}',{{ $item->price }} , {{ $item->id }});showProtection()">
                             <div class="menu-item-img">
                                 
                             </div>
@@ -117,7 +117,7 @@
                         </span>
                         @if ( is_array($menu2) && count($menu2) > 0 )
                             @foreach ($menu2 as $item) 
-                            <div class="menu-item" onclick="showMenuItem('{{ $item->name }}','{{ $item->description }}',{{ $item->price }} , {{ $item->id }});showProtection()">
+                            <div class="menu-item" onclick="showMenuItemBuy('{{ $item->name }}','{{ $item->description }}',{{ $item->price }} , {{ $item->id }});showProtection()">
                                 <div class="menu-item-img">
 
                                 </div>
@@ -150,7 +150,7 @@
                         </span>
                         @if (is_array($menu2) && count($menu2) > 0)
                             @foreach ($menu3 as $item) 
-                            <div class="menu-item" onclick="showMenuItem('{{ $item->name }}','{{ $item->description }}',{{ $item->price }} ,{{ $item->id }});showProtection()">
+                            <div class="menu-item" onclick="showMenuItemBuy('{{ $item->name }}','{{ $item->description }}',{{ $item->price }} ,{{ $item->id }});showProtection()">
                                 <div class="menu-item-img">
 
                                 </div>
@@ -177,7 +177,7 @@
                         </span>
                         @if (is_array($menu2) && count($menu2) > 0)
                             @foreach ($menu4 as $item) 
-                            <div class="menu-item" onclick="showMenuItem('{{ $item->name }}','{{ $item->description }}',{{ $item->price }}, {{ $item->id }});showProtection()">
+                            <div class="menu-item" onclick="showMenuItemBuy('{{ $item->name }}','{{ $item->description }}',{{ $item->price }}, {{ $item->id }});showProtection()">
                                 <div class="menu-item-img">
 
                                 </div>

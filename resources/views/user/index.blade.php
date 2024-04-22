@@ -17,6 +17,10 @@
             <div class="nearby">
                 <h1>Nearby</h1>
             </div>
+            <div class="nearby-search" style="display: flex;align-items:center;gap:15px">
+                <input type="text" class="search" placeholder="Search for events in your city">
+                <button class="search-btn"><i class="bi bi-search"></i></button>
+            </div>
             @if (count($businesses) == 0)
                 <div class="nearby-option">
                     <div class="no-events-nearby">

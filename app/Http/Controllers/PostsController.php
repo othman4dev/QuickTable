@@ -32,34 +32,6 @@ class PostsController extends Controller
         $categories = DB::table('categories')->get();
         return $categories;
     }
-    public static function reserve($id) {
-        if (session('user') == null) {
-            echo 'login';
-            redirect('/login');
-        } else {
-            $post = DB::table('reservation')->where('post_id', $id)->where('user_id', session('user')->id)->first();
-            if ($post) {
-                echo 'You have already reserved this post';
-            } else {
-            $places = DB::table('posts')->where('id', $id)->value('spots');
-            if ($places == 0) {
-                echo "No places left";
-            } else {
-                $token = rand(10000000, 99999999);
-                DB::table('reservation')->insert([
-                    'post_id' => $id,
-                    'user_id' => session('user')->id,
-                    'token' => $token,
-                    'created_at' => now()
-                ]);
-                DB::table('posts')->where('id', $id)->update([
-                    'spots' => $places - 1
-                ]);
-                echo "Reserved";
-            }
-            }
-        }
-    }
     public static function cancel($id) {
         $post = DB::table('reservation')->where('post_id', $id)->where('user_id', session('user')->id)->first();
         if ($post) {

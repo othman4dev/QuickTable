@@ -61,6 +61,17 @@
                 
             </div><p>{{ $reservations }}</p>
         </div>
+        <div class="card-stat">
+            <div class="absolute-illu">
+                <div class="circle-1 pink"></div>
+                <div class="circle-2 pink"></div>
+            </div>
+            <div class="stat-option">
+                <i class="bi bi-flag-fill stat-icon grey"></i>
+                <h2>Reports</h2>
+                
+            </div><p>{{ $reports }}</p>
+        </div>
     </section>
     <section class="tops">
         <div class="top5" data-aos="fade-up">

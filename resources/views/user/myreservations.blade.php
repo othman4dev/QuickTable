@@ -5,32 +5,28 @@
         <table id="myTable" class="display">
             <thead>
                 <tr>
-                    <th>Event</th>
-                    <th>Category</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Location</th>
+                    <th>Business</th>
+                    <th>Item</th>
                     <th>Price</th>
-                    <th>Spots</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Code</th>
+                    <th>Date</th>
                     <th>Ticket</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($reservations as $event)
+                @foreach ($reservations as $reservation)
                 <tr>
-                    <td>{{ $event->title }}</td>
-                    <td>{{ $event->category }}</td>
-                    <td>{{ $event->date }}</td>
-                    <td>{{ $event->time }}</td>
-                    <td>{{ $event->location }}</td>
-                    <td>{{ $event->price }} $</td>
-                    <td>{{ $event->spots }}</td>
+                    <td>{{ $reservation->business_name }}</td>
+                    <td>{{ $reservation->item_name }}</td>
+                    <td>{{ $reservation->price }} $</td>
+                    <td>{{ $reservation->quantity }} Seats</td>
+                    <td>{{ $reservation->price * $reservation->quantity }} $</td>
+                    <td>{{ $reservation->token }}</td>
+                    <td>{{ $reservation->reservation_date }}</td>
                     <td>
-                        @if ($event->status == 0)
-                            <p>Pending</p>
-                        @elseif ($event->status == 1)
-                            <a class="action-btn" style="width: 150px" onclick="showTicket(this,`{{ $event->title }}`,`{{ $event->category }}`,`{{ $event->date }}`,`{{ $event->time }}`,`{{ $event->price }}`,`{{ $event->token }}`,`{{ $event->location }}`,`{{ $event->image }}`)">See Ticket<i class="bi bi-ticket-detailed"></i></a>
-                        @endif
+                        <a class="action-btn" style="width: 150px;" onclick="showTicket(this,`{{ $reservation->business_name }}`,`{{ $reservation->item_name }}`,`{{ $reservation->reservation_date }}`,`{{ $reservation->quantity }}`,`{{ $reservation->price }}`,`{{ $reservation->token }}`,`{{ session('user')->firstname }} {{ session('user')->lastname }}`,`{{ $reservation->expires_at }}`,`url({{ $reservation->business_image }})`)">See Ticket<i class="bi bi-ticket-detailed"></i></a>
                     </td>
                 </tr>
                 @endforeach
@@ -44,7 +40,7 @@
             <div class="icon-wrapper" id="downloadBTN" onclick="downloadTicket()">
                 <i class="bi bi-download" style="cursor: pointer" ></i>
             </div>
-            <div class="icon-wrapper close" onclick="this.parentNode.parentNode.parentNode.style.display = 'none'">
+            <div class="icon-wrapper close" onclick="this.parentNode.parentNode.parentNode.style.display = 'none';hideProtection()">
                 <i class="bi bi-x-lg" style="cursor: pointer" ></i>
             </div>          
         </div>
@@ -52,11 +48,10 @@
 
         <div class="ticket" id="ticket">
             <div class="left">
-                <div class="image">
+                <div class="image" id="ticket-image">
                     <p class="admit-one">
-                        <span>EVENTO</span>
-                        <span>EVENTO</span>
-                        <span>EVENTO</span>
+                        <span>QuickTable</span>
+                        <span>QuickTable</span>
                     </p>
                     <div class="ticket-number">
                         <p id="event_token">
@@ -85,9 +80,8 @@
             </div>
             <div class="right">
                 <p class="admit-one">
-                    <span>EVENTO</span>
-                    <span>EVENTO</span>
-                    <span>EVENTO</span>
+                    <span>QuickTable</span>
+                    <span>QuickTable</span>
                 </p>
                 <div class="right-info-container">
                     <div class="show-name" >
@@ -107,8 +101,19 @@
         </div>
 </div>
 <script>
-    $(document).ready( function () {
-        $('#myTable').DataTable();
+    $(document).ready(function() {
+        $('#myTable').DataTable({
+            "columnDefs": [
+                { "width": "5%", "targets": 0 },
+                { "width": "10%", "targets": 1 },
+                { "width": "20%", "targets": 2 },
+                { "width": "10%", "targets": 3 },
+                { "width": "10%", "targets": 4 },
+                { "width": "10%", "targets": 5 },   
+                { "width": "15%", "targets": 6 },
+                { "width": "10%", "targets": 7 }
+            ]
+        });
     });
 
 </script>

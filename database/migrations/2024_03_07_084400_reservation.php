@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('type');
             $table->integer('token');
             $table->integer('status')->default(0);
+            $table->dateTime('expires_at');
             $table->rememberToken();
             $table->timestamps();
         });

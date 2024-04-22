@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OwnerController;
+use App\Http\Controllers\StripeController;
 
 
 /*
@@ -67,6 +68,8 @@ Route::middleware(['role:User'])->group(function () {
     Route::get('/restaurants', [PostsController::class, 'restaurants']);
     Route::get('/coffeeshops', [PostsController::class, 'coffeeshops']);
     Route::get('/likePost/{id}', [PostsController::class, 'likePost'])->name('likePost');
+    Route::post('/checkout', [StripeController::class, 'checkout']);
+    Route::get('/checkout/success', [StripeController::class, 'success'])->name('checkout.success');
 });
 //GUEST ROLE
 Route::middleware(['norole'])->group(function () {
