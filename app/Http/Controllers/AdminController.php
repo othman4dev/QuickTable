@@ -85,4 +85,12 @@ class AdminController extends Controller
             ->get();
         return view('admin.reports', ['reports' => $reports]);
     }
+    public static function inbox() {
+        $inbox = DB::table('inbox')
+            ->select('inbox.*', 'users.*')
+            ->join('users', 'users.id', '=', 'inbox.user_id')
+            ->orderBy('inbox.created_at', 'desc')
+            ->get();
+        return view('admin.inbox', ['messages' => $inbox]);
+    }
 }

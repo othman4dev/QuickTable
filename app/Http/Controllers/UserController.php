@@ -54,4 +54,12 @@ class UserController extends Controller
         $businesses = PostsController::businesses();
         return view('user.posts', ['posts' => $posts, 'businesses' => $businesses]);
     }
+    public static function contact(Request $request) {
+        DB::table('inbox')->insert([
+            'user_id' => session('user')->id,
+            'message' => $request->message,
+            'created_at' => date('Y-m-d H:i:s')
+        ]);
+        return redirect('/contact')->with('message', 'Message sent successfully');
+    }
 }

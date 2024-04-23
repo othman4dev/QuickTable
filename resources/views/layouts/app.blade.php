@@ -87,6 +87,10 @@
                 <i class="bi bi-ticket-detailed" style="font-size: 17px"></i>
                 <span>Reservations</span>
             </div>
+            <div class="mobile-option" onclick="window.location.href = '/contact'">
+                <i class="bi bi-chat-square-text" style="font-size: 17px;"></i>
+                <span>Contact</span>
+            </div>
             <div class="mobile-option">
                 <i class="bi bi-info-circle" style="font-size: 17px;" onclick="window.location.href='/help'"></i>
                 <span>Help</span>
@@ -123,6 +127,10 @@
                     <i class="bi bi-ticket-detailed" style="font-size: 25px"></i>
                     <span>Reservations</span>
                 </div>
+                <div class="side-option" onclick="window.location.href = '/contact'">
+                    <i class="bi bi-chat-square-text" style="font-size: 25px;"></i>
+                    <span>Contact</span>
+                </div>
                 <div class="side-option -help">
                     <i class="bi bi-info-circle" style="font-size: 25px;" onclick="window.location.href='/help'"></i>
                     <span>Help</span>
@@ -140,7 +148,7 @@
     @endif>
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title" id="modal-title">Error</h2>
+                <h2 class="modal-title" id="modal-title">Message</h2>
                 <div class="modal-close" onclick="this.parentNode.parentNode.parentNode.style.display = 'none'">
                     <i class="bi bi-x-lg"></i>
                 </div> 
@@ -149,8 +157,7 @@
                 <p class="modal-description" id="alert-message">{{ session('message') }}</p>
             </div>
             <div class="modal-footer">
-                <button class="modal-buttons" id="reserve-btn" onclick="this.parentNode.parentNode.parentNode.style.display = 'none'">Ok</button>
-                <button class="modal-buttons" onclick="this.parentNode.parentNode.parentNode.style.display = 'none'">Cancel</button>
+                <button class="modal-buttons" id="reserve-btn" onclick="this.parentNode.parentNode.parentNode.style.display = 'none'" style="margin-top: 15px">Ok</button>
             </div>
         </div>
     </div>

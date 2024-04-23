@@ -56,6 +56,7 @@ Route::middleware(['role:Owner'])->group(function () {
     Route::get('/deleteMenuItem/{id}', [OwnerController::class, 'deleteMenuItem'])->name('deleteMenuItem');
     Route::post('/editMenuItem', [OwnerController::class, 'editMenuItem']);
     Route::post('/addMenuItem', [OwnerController::class, 'addMenuItem']);
+    Route::get('/redeemTicket/{id}', [OwnerController::class, 'redeemTicket'])->name('redeemTicket');
 });
 //USER ROLE
 Route::middleware(['role:User'])->group(function () {
@@ -102,6 +103,15 @@ Route::middleware(['user'])->group(function () {
     Route::get('/search/{search}', [PostsController::class, 'search'])->name('search');
     Route::get('/getPost/{id}', [PostsController::class, 'getPost'])->name('getPost');
     Route::post('/sendMail', [EmailController::class, 'sendMail']);
+    Route::get('/contact', function () {
+        if (session('user')->role == 'Owner') {
+            return view('owner.contact');
+        } else if(session('user')->role == 'User') {
+            return view('user.contact');
+        }
+    });
+    Route::post('/sendMessage', [UserController::class, 'contact']);
+    Route::get('/inbox', [AdminController::class, 'inbox']);
 });
 Route::get('/', function () {
     if (session('user') == null) {

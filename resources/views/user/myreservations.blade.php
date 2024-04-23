@@ -12,6 +12,7 @@
                     <th>Total</th>
                     <th>Code</th>
                     <th>Date</th>
+                    <th>Status</th>
                     <th>Ticket</th>
                 </tr>
             </thead>
@@ -25,6 +26,18 @@
                     <td>{{ $reservation->price * $reservation->quantity }} $</td>
                     <td>{{ $reservation->token }}</td>
                     <td>{{ $reservation->reservation_date }}</td>
+                    <td>
+                        @if ($reservation->status == 1)
+                            <div class="status-active" style="width: 90px;">
+                                <span style="color: #2ecc71">Valid<i class="bi bi-clock"></i></span>
+                            </div>
+                        @elseif ($reservation->status == 0)
+                            <div class="status-not-active" style="width: 90px;">
+                                <span style="color: #f10f0f;">Redeemed<i class="bi bi-clock"></i></span>
+                            </div>
+                        @endif
+
+                    </td>
                     <td>
                         <a class="action-btn" style="width: 150px;" onclick="showTicket(this,`{{ $reservation->business_name }}`,`{{ $reservation->item_name }}`,`{{ $reservation->reservation_date }}`,`{{ $reservation->quantity }}`,`{{ $reservation->price }}`,`{{ $reservation->token }}`,`{{ session('user')->firstname }} {{ session('user')->lastname }}`,`{{ $reservation->expires_at }}`,`url({{ $reservation->business_image }})`)">See Ticket<i class="bi bi-ticket-detailed"></i></a>
                     </td>

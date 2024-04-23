@@ -100,7 +100,7 @@
                         <span class="col-title">
                             Items
                         </span>
-                        @foreach (session('menu')->take(5) as $item) 
+                        @foreach (session('menu')->take(5) as $item)
                         <div class="menu-item" onclick="showMenuItem('{{ $item->name }}','{{ $item->description }}',{{ $item->price }} , {{ $item->id }});showProtection()">
                             <div class="menu-item-img">
                                 
@@ -117,7 +117,7 @@
                     <div class="menu-line"></div>
                     <div class="menu-col">
                         @php
-                            $menu2 = '';
+                            $menu2 = null;
                             if (count(session('menu')) > 5) {
                                 $menu2 = collect(session('menu'))->slice(5, 5);
                             }
@@ -125,7 +125,7 @@
                         <span class="col-title">
                             Items
                         </span>
-                        @if ( is_array($menu2) && count($menu2) > 0 )
+                        @if (count($menu2) > 0 )
                             @foreach ($menu2 as $item) 
                             <div class="menu-item" onclick="showMenuItem('{{ $item->name }}','{{ $item->description }}',{{ $item->price }} , {{ $item->id }});showProtection()">
                                 <div class="menu-item-img">
@@ -158,7 +158,7 @@
                         <span class="col-title">
                             Items
                         </span>
-                        @if (is_array($menu2) && count($menu2) > 0)
+                        @if (count($menu3) > 0)
                             @foreach ($menu3 as $item) 
                             <div class="menu-item" onclick="showMenuItem('{{ $item->name }}','{{ $item->description }}',{{ $item->price }} ,{{ $item->id }});showProtection()">
                                 <div class="menu-item-img">
@@ -177,7 +177,7 @@
                     <div class="menu-line"></div>
                     <div class="menu-col">
                         @php
-                            $menu4 = '';
+                            $menu4 = null;
                             if (count(session('menu')) > 15) {
                                 $menu4 = collect(session('menu'))->slice(15, 5);
                             }
@@ -185,7 +185,7 @@
                         <span class="col-title">
                             Items
                         </span>
-                        @if (is_array($menu2) && count($menu2) > 0)
+                        @if (count($menu4) > 0)
                             @foreach ($menu4 as $item) 
                             <div class="menu-item" onclick="showMenuItem('{{ $item->name }}','{{ $item->description }}',{{ $item->price }}, {{ $item->id }});showProtection()">
                                 <div class="menu-item-img">
@@ -208,7 +208,7 @@
                     </div>
                 </div>
                 @endif
-        </div>
+            </div>
         </section>
             <section class="add-post" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
                 <div class="add-post-header" onclick="showAdd(this.nextElementSibling,this)">

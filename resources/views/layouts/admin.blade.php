@@ -75,6 +75,10 @@
                     <i class="bi bi-flag" style="font-size: 25px;"></i>
                     <span>Reports</span>
                 </div>
+                <div class="side-option" onclick="window.location.href = '/inbox'">
+                    <i class="bi bi-chat-square-text" style="font-size: 25px;"></i>
+                    <span>Contact</span>
+                </div>
                 <div class="side-option" onclick="window.location.href='/settings'">
                     <i class="bi bi-gear" style="font-size: 25px;"></i>
                     <span>Settings</span>

@@ -791,3 +791,27 @@ function likeWithAjax(id,btn) {
     };
     xhr.send();
 }
+function redeemAjax(btn , id) {
+    btn.innerHTML = `<div class="loader"></div>`;
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', `/redeemTicket/${id}`, true);
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            if (this.responseText == 'Redeemed') {
+                btn.innerHTML = 'Redeemed';
+                btn.disabled = true;
+            } else if (this.responseText == 'Already redeemed'){
+                btn.innerHTML = 'Already Redeemed';
+                btn.disabled = true;
+            }
+        } else {
+            console.log('Failed to send request');
+        }
+    };
+    xhr.send();
+}
+function openMessage(message) {
+    document.getElementById('message').innerText = message;
+    document.getElementById('messageModal').style.display = 'block';
+    document.getElementById('protection').style.display = 'block';
+}

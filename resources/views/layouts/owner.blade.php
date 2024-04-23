@@ -15,6 +15,8 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <link href="https://fonts.cdnfonts.com/css/reem-kufi" rel="stylesheet">
     <link  href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
     <title>QuickTable | Reserve  It Now</title>
@@ -69,9 +71,9 @@
                     <i class="bi bi-person-fill-lock" style="font-size: 25px"></i>
                     <span>Reservations</span>
                 </div>
-                <div class="side-option">
-                    <i class="bi bi bi-toggles" style="font-size: 25px;"></i>
-                    <span>Switch To User</span>
+                <div class="side-option" onclick="window.location.href = '/contact'">
+                    <i class="bi bi-chat-square-text" style="font-size: 25px;"></i>
+                    <span>Contact</span>
                 </div>
                 <div class="side-option" onclick="window.location.href = '/profile'">
                     <i class="bi bi-person" style="font-size: 25px;"></i>
@@ -90,18 +92,16 @@
     @endif>
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title" id="modal-title">Error</h2>
+                <h2 class="modal-title" id="modal-title">Message</h2>
                 <div class="modal-close" onclick="this.parentNode.parentNode.parentNode.style.display = 'none'">
                     <i class="bi bi-x-lg"></i>
                 </div> 
             </div>
             <div class="modal-body">
                 <p class="modal-description" id="alert-message">{{ session('message') }}</p>
-                <p class="event-description" id="event-details"></p>
             </div>
             <div class="modal-footer">
-                <button class="modal-buttons" id="reserve-btn" onclick="this.parentNode.parentNode.parentNode.style.display = 'none'">Ok</button>
-                <button class="modal-buttons" onclick="this.parentNode.parentNode.parentNode.style.display = 'none'">Cancel</button>
+                <button class="modal-buttons" id="reserve-btn" onclick="this.parentNode.parentNode.parentNode.style.display = 'none'" style="margin-top: 15px">Ok</button>
             </div>
         </div>
     </div>

@@ -118,10 +118,11 @@ class OwnerController extends Controller
     }
     public static function reservations() {
         $reservations = DB::table('reservation')
-            ->select('posts.*', 'reservation.*', 'users.*', 'reservation.id as reservation_id' ,'posts.id as event_id')
-            ->leftJoin('posts', 'posts.id', '=', 'reservation.event_id')
-            ->leftJoin('users', 'users.id', '=', 'reservation.business_id')
-            ->where('posts.business_id', session('user')->id)
+            ->select('posts.*', 'reservation.*', 'menu.*', 'users.*', 'reservation.id as reservation_id' ,'posts.id as event_id')
+            ->leftJoin('posts', 'posts.id', '=', 'reservation.business_id')
+            ->leftJoin('users', 'users.id', '=', 'reservation.user_id')
+            ->leftJoin('menu', 'menu.id', '=', 'reservation.item_id')
+            ->where('posts.business_id', session('business')->id)
             ->get();
         return view('owner.reservations', ['reservations' => $reservations]);
     }
@@ -138,8 +139,23 @@ class OwnerController extends Controller
         return view('owner.add');
     }
     public static function money() {
-        $myposts = self::myposts();
-        return view('owner.money', ['myposts' => $myposts]);
+        $weekstats = [];
+        for ($i = 0; $i < 7; $i++) {
+            $date = now()->subDays($i);
+            $count = DB::table('reservation')
+                        ->where('business_id', session('business')->id)
+                        ->where('status', 1)
+                        ->whereDate('created_at', $date)
+                        ->count();
+            $weekstats[$date->format('Y-m-d')] = $count;
+        }
+        $items = DB::table('menu')
+        ->select('menu.*', DB::raw('sum(reservation.quantity) as total_quantity'), DB::raw('count(reservation.id) as reservation_count'), 'menu.name as item_name')
+        ->leftJoin('reservation', 'reservation.item_id', '=', 'menu.id')
+        ->where('menu.business_id', session('business')->id)
+        ->groupBy('menu.id')
+        ->get();
+        return view('owner.money', ['weekstats' => $weekstats, 'items' => $items]);
     }
     public static function saveBanner(Request $request) {
         $imageName = time().'.'.$request->image->extension();
@@ -379,18 +395,33 @@ class OwnerController extends Controller
         return redirect('/profile');
     }
     public static function addMenuItem(Request $request) {
-        DB::table('menu')->insert(
-            [
-                'name' => $request->name,
-                'description' => $request->desc,
-                'price' => $request->price,
-                'business_id' => session('business')->id,
-                'created_at' => now(),
-                'updated_at' => now()
-            ]
-        );
-        $menu = DB::table('menu')->where('business_id', session('business')->id)->get();
-        session(['menu' => $menu]);
-        return redirect('/profile');
+        $itemsCount = DB::table('menu')->where('business_id', session('business')->id)->count();
+        if ($itemsCount >= 20) {
+            return redirect('/profile')->with('error', 'You have reached the maximum number of items (20)');
+        } else {
+            DB::table('menu')->insert(
+                [
+                    'name' => $request->name,
+                    'description' => $request->desc,
+                    'price' => $request->price,
+                    'business_id' => session('business')->id,
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ]
+            );
+            $menu = DB::table('menu')->where('business_id', session('business')->id)->get();
+            session(['menu' => $menu]);
+            return redirect('/profile');
+        }
+    }
+    public static function redeemTicket($id) {
+        $ticket = DB::table('reservation')->where('id', $id)->first();
+        if ( $ticket->status == 0 ) {
+            echo 'Ticket already redeemed';
+            return;
+        } else {
+            DB::table('reservation')->where('id', $id)->update(['status' => 0]);
+            echo 'Redeemed';
+        }
     }
 }
