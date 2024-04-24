@@ -270,8 +270,8 @@
 
                         <div class="post" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
                             <div class="no-events">
-                                <h1><i class="bi bi-emoji-frown-fill"></i> No Events Yet</h1>
-                                <p>Start adding events to your profile</p>
+                                <h1><i class="bi bi-emoji-frown-fill"></i> No Posts Yet</h1>
+                                <p>Look somewhere else for posts</p>
                             </div>
                         </div>  
                     @endif
