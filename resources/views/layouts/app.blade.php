@@ -227,7 +227,7 @@
 </html>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
 <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
-<script src="{{ asset('js/script.js') }}?v=1.1" defer></script>
+<script src="{{ asset('js/script.js') }}?v=1.2" defer></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     AOS.init();

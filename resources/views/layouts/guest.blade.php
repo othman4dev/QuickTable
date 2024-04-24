@@ -24,4 +24,4 @@
     </footer>
 </body>
 </html>
-<script src="js/script.js" defer></script>{{--7614--}}
+<script src="{{ asset('js/script.js?v1.2')}}" defer></script>{{--7614--}}

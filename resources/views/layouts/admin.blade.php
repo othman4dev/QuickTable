@@ -119,7 +119,7 @@
     <div class="protection" id="protection"></div>
 </body>
 </html>
-<script src="{{ asset('js/script.js') }}?v=1.1" defer></script>
+<script src="{{ asset('js/script.js') }}?v=1.2" defer></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     AOS.init();
