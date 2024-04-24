@@ -13,8 +13,8 @@
     <header class="index-header">
         <h1 class="login-h1">Quick<img src="assets/table.svg" class="table-icon" alt="">able</h1>
         <div class="logins">
-            <button class="log">Login</button>
-            <button class="log">Register</button>
+            <button class="log" onclick="window.location.href = '/login?login'">Login</button>
+            <button class="log" onclick="window.location.href = '/login?register'">Register</button>
         </div>
     </header>
     @yield('content')
