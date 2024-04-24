@@ -13,6 +13,7 @@ phases:
       - php composer-setup.php --install-dir=/usr/local/bin --filename=composer
       - composer update
       - php artisan optimize
+      - php artisan config:cache
   pre_build:
     commands:
       - composer update
