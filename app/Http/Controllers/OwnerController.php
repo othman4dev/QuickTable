@@ -397,7 +397,7 @@ class OwnerController extends Controller
     public static function addMenuItem(Request $request) {
         $itemsCount = DB::table('menu')->where('business_id', session('business')->id)->count();
         if ($itemsCount >= 20) {
-            return redirect('/profile')->with('error', 'You have reached the maximum number of items (20)');
+            return redirect('/profile')->with('message', 'You have reached the maximum number of items (20)');
         } else {
             DB::table('menu')->insert(
                 [

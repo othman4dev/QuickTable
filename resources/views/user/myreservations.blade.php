@@ -80,7 +80,7 @@
                     </p>
                     <div class="show-name">
                         <h1 id="event_title" style="font-size:100%;">EXPLORER</h1>
-                        <h2 id="event_category" style="font-size:100%;">EVENTO</h2>
+                        <h2 id="event_category" style="font-size:100%;">QuickTable</h2>
                     </div>
                     <div class="time" id="event_time">
                         <p>8:00 PM <span>TO</span> 11:00 PM</p>

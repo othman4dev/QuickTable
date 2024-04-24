@@ -58,7 +58,7 @@
         <p>Dear User,</p>
         <p>Thank you for joining our platform. We are excited to have you on board.</p>
         <p>Click the button below to get started:</p>
-        <a href="https://youcode-evento.me" class="button">Get Started</a>
+        <a href="https://youcode-quicktable.me" class="button">Get Started</a>
         <div class="footer">
             <p>If you have any questions, feel free to contact us at othman4dev@gmail.com.</p>
         </div>

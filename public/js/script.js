@@ -8,10 +8,10 @@ if (document.querySelector("#login-animation")) {
     document.addEventListener('DOMContentLoaded',function(event){
         // array with texts to type in typewriter
         var dataText = [
-            "Discover Exciting Events Near You.",
-            "Seamless Event Reservation Experience.",
-            "Find, Book, and Attend Events Effortlessly.",
-            "Elevate Your Event Experience with Evento"
+            "Reserve on the go, anytime.",
+            "Secure your spot at top venues first.",
+            "Discover, book, and enjoy with ease.",
+            "Elevate your booking experience with Quicktable."
         ];
         
         // type one text in the typwriter

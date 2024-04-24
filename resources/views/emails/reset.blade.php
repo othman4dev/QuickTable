@@ -56,7 +56,7 @@
             <a class="button">{{ session('token') }}</a>
             <p>If you did not request a password reset, no further action is required.</p>
             <p>Regards,</p>
-            <h3>EVENTO Team</h3>
+            <h3>QuickTabke Team</h3>
         </div>
     </div>
 </body>

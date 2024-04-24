@@ -69,7 +69,7 @@
     <div style="background-color: #f1f1f1; padding: 20px;">
         <div style="max-width: 600px; margin: 0 auto; background-color: #fff;">
             <div style="background-color: #000000; padding: 20px; text-align: center; color: #fff;">
-                <h1 style="font-weight: 900; margin: 0;">Evento Tickets</h1>
+                <h1 style="font-weight: 900; margin: 0;">QuickTabke Tickets</h1>
             </div>
             <div style="padding: 20px;">
                 <h2 style="margin-top: 0;">You have reserved a ticket at {{ session('event_name') }}</h2>
@@ -77,7 +77,7 @@
             </div>
             <div class="ticket" style="background-color: #e1e1d6; border-radius: 7px; margin: 15px;">
                 <div class="ticket-header" style="display: flex; justify-content: center; align-items: center; padding: 15px;gap:100px">
-                    <h1>EVENTO</h1>
+                    <h1>QuickTable</h1>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <h1>Event ticket</h1>
                 </div>
@@ -104,7 +104,7 @@
             <div style="padding: 20px;">
                 <p class="note" style="background-color: #f00; color: #fff; padding: 15px;">Do not share nor this ticket nor the verification code with anyone, it is unique to you.</p>
                 <p>Thank you for using our services, we hope you enjoy the event.</p>
-                <h2>EVENTO.</h2>
+                <h2>QuickTable.</h2>
             </div>
         </div>
     </div>

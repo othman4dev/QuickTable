@@ -35,6 +35,9 @@ Route::middleware(['role:Admin'])->group(function() {
     Route::get('/upgrade/{id}', [AdminController::class, 'upgrade'])->name('upgrade');
     Route::get('/downgrade/{id}', [AdminController::class, 'downgrade'])->name('downgrade');
     Route::get('/reports', [AdminController::class, 'reports']);
+    Route::get('/dismissReport/{id}', [AdminController::class, 'dismissReport'])->name('dismissReport');
+    Route::get('/userBan/{id}', [AdminController::class, 'userBan'])->name('userBan');
+    Route::get('/userUnban/{id}', [AdminController::class, 'userUnban'])->name('userUnban');
 });
 //Owner ROLE
 Route::middleware(['role:Owner'])->group(function () {

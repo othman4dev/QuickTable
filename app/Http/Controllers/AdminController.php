@@ -65,7 +65,22 @@ class AdminController extends Controller
         $posts = DB::table('posts')->count();
         $admins = DB::table('users')->where('role', 'Admin')->count();
         $reports = DB::table('reports')->count();
-        return view('admin.stats', ['users' => $users, 'reservations' => $reservations, 'posts' => $posts , 'owners' => $owners , 'admins' => $admins , 'reports' => $reports]);
+        $topReservators = DB::table('users')
+            ->select('users.*', DB::raw('count(reservation.id) as reservation_count'))
+            ->join('reservation', 'reservation.user_id', '=', 'users.id')
+            ->groupBy('users.id')
+            ->orderBy('reservation_count', 'desc')
+            ->limit(5)
+            ->get();
+        $topBusinesses = DB::table('business')
+            ->select('business.*', 'users.*' ,DB::raw('count(reservation.id) as reservation_count'))
+            ->leftJoin('users', 'users.id', '=', 'business.owner_id')
+            ->join('reservation', 'reservation.business_id', '=', 'business.id')
+            ->groupBy('business.id')
+            ->orderBy('reservation_count', 'desc')
+            ->limit(5)
+            ->get();
+        return view('admin.stats', ['users' => $users, 'reservations' => $reservations, 'posts' => $posts , 'owners' => $owners , 'admins' => $admins , 'reports' => $reports , 'topReservators' => $topReservators , 'topBusinesses' => $topBusinesses]);
     }
     public static function posts() {
         $posts = DB::table('posts')
@@ -92,5 +107,21 @@ class AdminController extends Controller
             ->orderBy('inbox.created_at', 'desc')
             ->get();
         return view('admin.inbox', ['messages' => $inbox]);
+    }
+    public static function dismissReport($id) {
+        DB::table('reports')->where('id',$id)->delete();
+        return redirect('/reports');
+    }
+    public static function userBan($id) {
+        DB::table('users')->where('id', $id)->update([
+            'status' => 0
+        ]);
+        return redirect('/users');
+    }
+    public static function userUnban($id) {
+        DB::table('users')->where('id',$id)->update([
+            'status' => 1
+        ]);
+        return redirect('/users');
     }
 }

@@ -82,141 +82,41 @@
             <div class="top5-title">
                 <h1 class="top-h1">Top Reservators</h1>
             </div>
+            @foreach ($topReservators as $user)
             <div class="top5-case">
                 <div class="mini-profile">
                     <div class="mini-profile-img"></div>
                     <div class="mini-profile-texts">
-                        <p style="font-size: 13px">John Doe</p>
-                        <p>JohnDoe15@gmail.com</p>
+                        <p style="font-size: 13px">{{ $user->firstname }} {{ $user->lastname }}</p>
+                        <p>{{ $user->email }}</p>
                     </div>
                 </div>
                 <div class="mini-stat">
-                    <p class="mini-stat-num">5</p>
+                    <p class="mini-stat-num">{{ $user->reservation_count }}</p>
                     <p class="mini-stat-text">Reservations</p>
                 </div>
             </div>
-            <div class="top5-case">
-                <div class="mini-profile">
-                    <div class="mini-profile-img"></div>
-                    <div class="mini-profile-texts">
-                        <p style="font-size: 13px">John Doe</p>
-                        <p>JohnDoe15@gmail.com</p>
-                    </div>
-                </div>
-                <div class="mini-stat">
-                    <p class="mini-stat-num">5</p>
-                    <p class="mini-stat-text">Reservations</p>
-                </div>
-            </div>
-            <div class="top5-case">
-                <div class="mini-profile">
-                    <div class="mini-profile-img"></div>
-                    <div class="mini-profile-texts">
-                        <p style="font-size: 13px">John Doe</p>
-                        <p>JohnDoe15@gmail.com</p>
-                    </div>
-                </div>
-                <div class="mini-stat">
-                    <p class="mini-stat-num">5</p>
-                    <p class="mini-stat-text">Reservations</p>
-                </div>
-            </div>
-            <div class="top5-case">
-                <div class="mini-profile">
-                    <div class="mini-profile-img"></div>
-                    <div class="mini-profile-texts">
-                        <p style="font-size: 13px">John Doe</p>
-                        <p>JohnDoe15@gmail.com</p>
-                    </div>
-                </div>
-                <div class="mini-stat">
-                    <p class="mini-stat-num">5</p>
-                    <p class="mini-stat-text">Reservations</p>
-                </div>
-            </div>
-            <div class="top5-case">
-                <div class="mini-profile">
-                    <div class="mini-profile-img"></div>
-                    <div class="mini-profile-texts">
-                        <p style="font-size: 13px">John Doe</p>
-                        <p>JohnDoe15@gmail.com</p>
-                    </div>
-                </div>
-                <div class="mini-stat">
-                    <p class="mini-stat-num">5</p>
-                    <p class="mini-stat-text">Reservations</p>
-                </div>
-            </div>
+            @endforeach
         </div>
         <div class="top5" data-aos="fade-up">
             <div class="top5-title">
                 <h1 class="top-h1">Top Businesses</h1>
             </div>
+            @foreach ($topBusinesses as $business)
             <div class="top5-case">
                 <div class="mini-profile">
                     <div class="mini-profile-img"></div>
                     <div class="mini-profile-texts">
-                        <p style="font-size: 13px">Black Milk</p>
-                        <p>Owner : Othman Kharbouch</p>
+                        <p style="font-size: 13px">{{ $business->name }}</p>
+                        <p>Owner : {{ $business->firstname }} {{ $business->lastname }}</p>
                     </div>
                 </div>
                 <div class="mini-stat">
-                    <p class="mini-stat-num">255</p>
+                    <p class="mini-stat-num">{{ $business->reservation_count }}</p>
                     <p class="mini-stat-text">Reservations</p>
                 </div>
             </div>
-            <div class="top5-case">
-                <div class="mini-profile">
-                    <div class="mini-profile-img"></div>
-                    <div class="mini-profile-texts">
-                        <p style="font-size: 13px">Black Milk</p>
-                        <p>Owner : Othman Kharbouch</p>
-                    </div>
-                </div>
-                <div class="mini-stat">
-                    <p class="mini-stat-num">255</p>
-                    <p class="mini-stat-text">Reservations</p>
-                </div>
-            </div>
-            <div class="top5-case">
-                <div class="mini-profile">
-                    <div class="mini-profile-img"></div>
-                    <div class="mini-profile-texts">
-                        <p style="font-size: 13px">Black Milk</p>
-                        <p>Owner : Othman Kharbouch</p>
-                    </div>
-                </div>
-                <div class="mini-stat">
-                    <p class="mini-stat-num">255</p>
-                    <p class="mini-stat-text">Reservations</p>
-                </div>
-            </div>
-            <div class="top5-case">
-                <div class="mini-profile">
-                    <div class="mini-profile-img"></div>
-                    <div class="mini-profile-texts">
-                        <p style="font-size: 13px">Black Milk</p>
-                        <p>Owner : Othman Kharbouch</p>
-                    </div>
-                </div>
-                <div class="mini-stat">
-                    <p class="mini-stat-num">255</p>
-                    <p class="mini-stat-text">Reservations</p>
-                </div>
-            </div>
-            <div class="top5-case">
-                <div class="mini-profile">
-                    <div class="mini-profile-img"></div>
-                    <div class="mini-profile-texts">
-                        <p style="font-size: 13px">Black Milk</p>
-                        <p>Owner : Othman Kharbouch</p>
-                    </div>
-                </div>
-                <div class="mini-stat">
-                    <p class="mini-stat-num">255</p>
-                    <p class="mini-stat-text">Reservations</p>
-                </div>
-            </div>
+            @endforeach
             <div class="absolute-illu2">
                 <div class="circle-1 green"></div>
                 <div class="circle-2 green"></div>

@@ -26,7 +26,7 @@ class VerifyEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Verify your email address at EVENTO',
+            subject: 'Verify your email address at QuickTable',
         );
     }
 

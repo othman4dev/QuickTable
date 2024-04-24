@@ -6,7 +6,7 @@
         <div class="overplay">
             <h1 class="title-ad"><img src="assets/LOGO.svg" style="height: 100px;margin-left:20px" class="inline-img" alt=""></h1>
             <h2 class="sub-ad">Find, Book, and Attend Events Effortlessly.</h2>
-            <h5 class="types">Elevate Your Event Experience with Evento</h5>
+            <h5 class="types">Elevate Your Event Experience with QuickTable</h5>
         </div>
         <div class="slider" id="slider">
             
