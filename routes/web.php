@@ -38,6 +38,8 @@ Route::middleware(['role:Admin'])->group(function() {
     Route::get('/dismissReport/{id}', [AdminController::class, 'dismissReport'])->name('dismissReport');
     Route::get('/userBan/{id}', [AdminController::class, 'userBan'])->name('userBan');
     Route::get('/userUnban/{id}', [AdminController::class, 'userUnban'])->name('userUnban');
+    Route::get('/deleteBusiness/{id}', [AdminController::class, 'deleteBusiness'])->name('deleteBusiness');
+    Route::get('/allowBusiness/{id}', [AdminController::class, 'allowBusiness'])->name('allowBusiness');
 });
 //Owner ROLE
 Route::middleware(['role:Owner'])->group(function () {
@@ -46,7 +48,7 @@ Route::middleware(['role:Owner'])->group(function () {
     Route::get('/money' , [OwnerController::class, 'money']);
     Route::post('/addPost', [OwnerController::class, 'addPost']);
     Route::get('/profile' , [OwnerController::class, 'profile']);
-    Route::get('/edit/{id}', [OwnerController::class, 'edit'])->name('edit');
+    Route::get('/editPage/{id}', [OwnerController::class, 'editPage'])->name('edit');
     Route::post('/editPost' , [OwnerController::class, 'editPost']);
     Route::get('/deletePost/{id}', [OwnerController::class, 'deletePost'])->name('deletePost');
     Route::get('/reservations' , [OwnerController::class, 'reservations']);
@@ -128,6 +130,12 @@ Route::get('/', function () {
         $businesses = PostsController::businesses();
         return view('user.index', ['posts' => $posts , 'businesses' => $businesses]);
     }
+});
+Route::get('/404', function () {
+    return view('404');
+});
+Route::get('/banned', function () {
+    return view('banned');
 });
 
 

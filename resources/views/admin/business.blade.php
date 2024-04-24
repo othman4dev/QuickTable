@@ -28,7 +28,7 @@
                     </div>
                     <div class="user-status-item">
                         <h1>Reservations</h1>
-                        <span>100</span>
+                        <span>{{ $reservationCount }}</span>
                     </div>
                 </div>
             </div>
@@ -115,7 +115,7 @@
                         <span class="col-title">
                             Items
                         </span>
-                        @if ( is_array($menu2) && count($menu2) > 0 )
+                        @if (count($menu) > 5 )
                             @foreach ($menu2 as $item) 
                             <div class="menu-item" onclick="showMenuItem('{{ $item->name }}','{{ $item->description }}',{{ $item->price }} , {{ $item->id }});showProtection()">
                                 <div class="menu-item-img">
@@ -148,7 +148,7 @@
                         <span class="col-title">
                             Items
                         </span>
-                        @if (is_array($menu2) && count($menu2) > 0)
+                        @if (count($menu) > 10)
                             @foreach ($menu3 as $item) 
                             <div class="menu-item" onclick="showMenuItem('{{ $item->name }}','{{ $item->description }}',{{ $item->price }} ,{{ $item->id }});showProtection()">
                                 <div class="menu-item-img">
@@ -175,7 +175,7 @@
                         <span class="col-title">
                             Items
                         </span>
-                        @if (is_array($menu2) && count($menu2) > 0)
+                        @if (count($menu) > 15)
                             @foreach ($menu4 as $item) 
                             <div class="menu-item" onclick="showMenuItem('{{ $item->name }}','{{ $item->description }}',{{ $item->price }}, {{ $item->id }});showProtection()">
                                 <div class="menu-item-img">

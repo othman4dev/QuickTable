@@ -4,7 +4,7 @@
 <section class="all">
     <section class="advertisement">
         <div class="overplay">
-            <h1 class="title-ad">Quick<img src="assets/table.svg" class="inline-img" alt="">able</h1>
+            <h1 class="title-ad">Quick<img src="{{ asset('assets/table.svg') }}" class="inline-img" alt="">able</h1>
             <h2 class="sub-ad">Reserve Your Seat Anywhere.</h2>
             <h5 class="types">Restaurants , Coffee shops, Barber shops or Hair salons</h5>
         </div>
@@ -24,7 +24,7 @@
             @if (count($businesses) == 0)
                 <div class="nearby-option">
                     <div class="no-events-nearby">
-                        <h1><i class="bi bi-emoji-frown-fill"></i> No Events Yet</h1>
+                        <h1><i class="bi bi-emoji-frown-fill"></i> No Businesses Yet</h1>
                         <p>Please check later for new businesses</p>
                     </div>
                 </div>
@@ -117,16 +117,6 @@
                             <i class="bi bi-heart like-btn"></i>
                             <span>{{ $post->likes }}</span>
                         @endif 
-                    </div>
-                    <div class="post-likes" onclick="showNote(this)">
-                        <i class="bi bi-question-circle question-btn" ></i>
-                        <span>Send a note</span>
-                    </div>
-                    <div class="post-note">
-                        <form class="note-form" method="post">
-                            <input type="text" class="note-inp" placeholder="Send a note or a question ...">
-                            <button class="note-btn"><i class="bi bi-send" style="font-size: 18px;"></i></button>
-                        </form>
                     </div>
                 </div>
             </div>

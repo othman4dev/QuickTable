@@ -288,8 +288,8 @@
                                 </div>
                             </div>
                             <div class="post-buttons">
-                                <button onclick="window.location.href='/edit/{{ $post->post_id}}'" class="post-btns-btn">Edit <i class="bi bi-pencil-square"></i></button>
-                                <button onclick="window.location.href='/deleteEvent/{{ $post->post_id}}'" class="post-btns-btn">Delete <i class="bi bi-trash3-fill"></i></button>
+                                <button onclick="window.location.href='/editPage/{{ $post->post_id}}'" class="post-btns-btn">Edit <i class="bi bi-pencil-square"></i></button>
+                                <button onclick="window.location.href='/deletePost/{{ $post->post_id}}'" class="post-btns-btn">Delete <i class="bi bi-trash3-fill"></i></button>
                             </div>
                         </div>
                         <div class="post-body">
@@ -305,7 +305,10 @@
                             </div>
                         </div>
                         <div class="post-footer">
-                            
+                            <div class="post-likes">
+                                <i class="bi bi-heart like-btn"></i>
+                                <span>{{ $post->likes }}</span>
+                            </div>
                         </div>
                     </div>
                     @endforeach

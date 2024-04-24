@@ -72,7 +72,7 @@
                     <i class="bi bi-person-fill-lock" style="font-size: 25px"></i>
                     <span>Reservations</span>
                 </div>
-                <div class="side-option" onclick="window.location.href = '/contact'">
+                <div class="side-option -contact" onclick="window.location.href = '/contact'">
                     <i class="bi bi-chat-square-text" style="font-size: 25px;"></i>
                     <span>Contact</span>
                 </div>
@@ -350,7 +350,7 @@
     </div>
 </body>
 </html>
-<script src="js/script.js?v=1.1" defer></script>
+<script src="{{ asset('js/script.js?v=1.1')}}" defer></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 <script>

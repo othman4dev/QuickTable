@@ -128,7 +128,7 @@
                     <i class="bi bi-ticket-detailed" style="font-size: 25px"></i>
                     <span>Reservations</span>
                 </div>
-                <div class="side-option" onclick="window.location.href = '/contact'">
+                <div class="side-option -contact" onclick="window.location.href = '/contact'">
                     <i class="bi bi-chat-square-text" style="font-size: 25px;"></i>
                     <span>Contact</span>
                 </div>

@@ -66,7 +66,9 @@ class PostsController extends Controller
         ->select('business.*', 'users.*','business.id as businessId')
         ->leftJoin('users', 'users.id', '=', 'business.owner_id')
         ->where('business.id', $id)
+        ->where('business.status', 1)
         ->first();
+        $reservationCount = DB::table('reservation')->where('business_id', $business->businessId)->count();
         $slider1_title = DB::table('slides')->where('business_id', $business->businessId)->where('slider_index' , 1)->first()->title;
         $slider2_title = DB::table('slides')->where('business_id', $business->businessId)->where('slider_index' , 2)->first()->title;
         $slides2 = DB::table('slides')->where('business_id', $business->businessId)->where('slider_index' , 2)->get();
@@ -95,9 +97,9 @@ class PostsController extends Controller
             }
         }
         if (session('user')->role == 'Admin') {
-            return view('admin.business', ['business' => $business, 'slider1_title' => $slider1_title, 'slider2_title' => $slider2_title, 'slider1' => $images, 'slider2' => $images2, 'myposts' => $myposts, 'menu' => $menu , 'postCount' => $postCount]);
+            return view('admin.business', ['business' => $business, 'slider1_title' => $slider1_title, 'slider2_title' => $slider2_title, 'slider1' => $images, 'slider2' => $images2, 'myposts' => $myposts, 'menu' => $menu , 'postCount' => $postCount, 'reservationCount' => $reservationCount]);
         } else  {
-            return view('user.business', ['business' => $business, 'slider1_title' => $slider1_title, 'slider2_title' => $slider2_title, 'slider1' => $images, 'slider2' => $images2, 'myposts' => $myposts, 'menu' => $menu , 'postCount' => $postCount]);
+            return view('user.business', ['business' => $business, 'slider1_title' => $slider1_title, 'slider2_title' => $slider2_title, 'slider1' => $images, 'slider2' => $images2, 'myposts' => $myposts, 'menu' => $menu , 'postCount' => $postCount, 'reservationCount' => $reservationCount]);
         }
     }
     public static function post() {

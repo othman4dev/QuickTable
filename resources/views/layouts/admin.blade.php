@@ -76,7 +76,7 @@
                     <i class="bi bi-flag" style="font-size: 25px;"></i>
                     <span>Reports</span>
                 </div>
-                <div class="side-option" onclick="window.location.href = '/inbox'">
+                <div class="side-option -contact" onclick="window.location.href = '/inbox'">
                     <i class="bi bi-chat-square-text" style="font-size: 25px;"></i>
                     <span>Contact</span>
                 </div>

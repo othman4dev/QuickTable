@@ -18,6 +18,9 @@ class LoginController extends Controller
         $username = $request->input('email');
         $password = $request->input('password');
         $user = DB::table('users')->where('email', $username)->first();
+        if ($user->status == 0) {
+            return redirect('/banned');
+        }
         if ($user && password_verify($password , $user->password) && $user->email_verified_at != null) {
             session(['user' => $user]);
             if ($user->role == 'Owner') {

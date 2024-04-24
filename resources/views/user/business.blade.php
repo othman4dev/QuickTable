@@ -28,7 +28,7 @@
                     </div>
                     <div class="user-status-item">
                         <h1>Reservations</h1>
-                        <span>100</span>
+                        <span>{{ $reservationCount }}</span>
                     </div>
                 </div>
             </div>
@@ -90,7 +90,7 @@
                         <span class="col-title">
                             Items
                         </span>
-                        @foreach ($menu->take(5) as $item) 
+                        @foreach ($menu->take(5) as $item)
                         <div class="menu-item" onclick="showMenuItemBuy('{{ $item->name }}','{{ $item->description }}',{{ $item->price }} , {{ $item->id }});showProtection()">
                             <div class="menu-item-img">
                                 
@@ -252,16 +252,6 @@
                                     <i class="bi bi-heart like-btn"></i>
                                     <span>{{ $post->likes }}</span>
                                 @endif 
-                            </div>
-                            <div class="post-likes" onclick="showNote(this)">
-                                <i class="bi bi-question-circle question-btn" ></i>
-                                <span>Send a note</span>
-                            </div>
-                            <div class="post-note">
-                                <form class="note-form" method="post">
-                                    <input type="text" class="note-inp" placeholder="Send a note or a question ...">
-                                    <button class="note-btn"><i class="bi bi-send" style="font-size: 18px;"></i></button>
-                                </form>
                             </div>
                         </div>
                     </div>

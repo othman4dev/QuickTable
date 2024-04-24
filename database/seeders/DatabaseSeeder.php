@@ -46,12 +46,12 @@ class DatabaseSeeder extends Seeder
             'updated_at' => now(),
         ]);
         DB::table('business')->insert([
-            'name' => 'Black Pearl',
+            'name' => 'Litchi',
             'business_type' => 'Coffee Shop',
             'address' => 'Rue 20, Marrakech, Morocco',
             'phone' => '+212612345678',
-            'email' => 'blackpearl@contact.com',
-            'description' => 'The best coffee shop in town',
+            'email' => 'litchicafe@contact.com',
+            'description' => 'The best coffee shop in the city',
             'background_image' => '../uploads/defaultbusiness.jpg',
             'base_price' => 2,
             'reports' => 0,
@@ -59,9 +59,23 @@ class DatabaseSeeder extends Seeder
             'created_at' => NOW(),
             'owner_id' => 2,
         ]);
+        DB::table('business')->insert([
+            'name' => 'Black Milk',
+            'business_type' => 'Coffee Shop',
+            'address' => 'Rue 20, Youssoufia, Morocco',
+            'phone' => '+212612345678',
+            'email' => 'blackmilk@contact.com',
+            'description' => 'Best view for work or chat.',
+            'background_image' => '../uploads/defaultbusiness.jpg',
+            'base_price' => 3,
+            'reports' => 0,
+            'status' => 1,
+            'created_at' => NOW(),
+            'owner_id' => 2,
+        ]);
         for ($i = 1; $i < 4; $i++) {
             DB::table('slides')->insert([
-                'title' => 'Welcome to Black Pearl',
+                'title' => 'Places',
                 'business_id' => 1,
                 'slider_index' => 1,
                 'slide_index' => $i,
@@ -72,8 +86,30 @@ class DatabaseSeeder extends Seeder
         }
         for ($i = 1; $i < 4; $i++) {
             DB::table('slides')->insert([
-                'title' => 'Welcome to Black Pearl',
+                'title' => 'Dishes',
                 'business_id' => 1,
+                'slider_index' => 2,
+                'slide_index' => $i,
+                'image' => '../assets/noimage.png',
+                'created_at' => NOW(),
+                'updated_at' => NOW(),
+            ]);
+        }
+        for ($i = 1; $i < 4; $i++) {
+            DB::table('slides')->insert([
+                'title' => 'Places',
+                'business_id' => 2,
+                'slider_index' => 1,
+                'slide_index' => $i,
+                'image' => '../assets/noimage.png',
+                'created_at' => NOW(),
+                'updated_at' => NOW(),
+            ]);
+        }
+        for ($i = 1; $i < 4; $i++) {
+            DB::table('slides')->insert([
+                'title' => 'Dishes',
+                'business_id' => 2,
                 'slider_index' => 2,
                 'slide_index' => $i,
                 'image' => '../assets/noimage.png',
@@ -87,7 +123,7 @@ class DatabaseSeeder extends Seeder
                 'description' => $faker->paragraph(),
                 'image' => '../uploads/defaultpost.jpg',
                 'deleted' => $faker->boolean(),
-                'business_id' => 1,
+                'business_id' => $faker->numberBetween(1, 2),
                 'created_at' => $faker->dateTime(),
                 'updated_at' => $faker->dateTime(),
             ]);
@@ -96,7 +132,7 @@ class DatabaseSeeder extends Seeder
             DB::table('menu')->insert([
                 'name' => $faker->word(),
                 'description' => $faker->paragraph(),
-                'price' => $faker->numberBetween(10, 100),
+                'price' => $faker->numberBetween(1, 10),
                 'business_id' => '1',
                 'created_at' => $faker->dateTime(),
                 'updated_at' => $faker->dateTime(),

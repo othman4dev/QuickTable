@@ -26,7 +26,7 @@ class AdminController extends Controller
             'phone' => 'New Phone',
             'email' => 'New Email',
             'description' => 'New Description',
-            'background_image' => '../uploads/defaultbusiness.jpg',
+            'background_image' => '../uploads/default_banner.jpg',
             'business_type' => 'Restaurant',
             'status' => 1,
             'base_price' => 1,
@@ -123,5 +123,13 @@ class AdminController extends Controller
             'status' => 1
         ]);
         return redirect('/users');
+    }
+    public static function deleteBusiness($id) {
+        DB::table('business')->where('id', $id)->update(['status' => 0]);
+        return redirect('/business');
+    }
+    public static function allowBusiness($id) {
+        DB::table('business')->where('id', $id)->update(['status' => 1]);
+        return redirect('/business');
     }
 }

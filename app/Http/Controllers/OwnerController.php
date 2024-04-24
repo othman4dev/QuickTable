@@ -15,6 +15,7 @@ class OwnerController extends Controller
             ->select('posts.*', 'posts.id as post_id')
             ->leftJoin('business', 'business.id' , '=', 'posts.business_id')
             ->where('posts.business_id', session('business')->id)
+            ->where('posts.deleted', 0)
             ->get();
         
         return $myposts;
@@ -66,53 +67,46 @@ class OwnerController extends Controller
     }
     public static function profile() {
         $myposts = self::myposts();
+        $reservationCount = DB::table('reservation')->where('business_id', session('business')->id)->count();
         $postCount = DB::table('posts')->where('business_id', session('business')->id)->count();
         return view('owner.profile', ['myposts' => $myposts , 'postCount' => $postCount]);
     }
-    public static function editEvent(Request $request) {
+    public static function editPost(Request $request) {
         $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'location' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'spots' => 'required',
-            'date' => 'required',
-            'time' => 'required',
-            'price' => 'required',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        $imageName = time().'.'.$request->image->extension();
-        $request->image->move(public_path('uploads'), $imageName);
-        posts::where('id', $request->input('id'))->update(
-            [
-                'title' => $request->input('title'),
-                'description' => $request->input('description'),
-                'location' => $request->input('location'),
-                'image' => '../uploads/'.$imageName,
-                'places' => $request->input('spots'),
-                'spots' => $request->input('spots'),
-                'date' => $request->input('date'),
-                'time' => $request->input('time'),
-                'price' => $request->input('price'),
-                'business_id' => session('user')->id,
-                'approved' => 0,
-                'updated_at' => now()
-            ]
-        );
+    
+        $updateData = [
+            'title' => $request->input('title'),
+            'description' => $request->input('description'),
+            'business_id' => session('business')->id,
+            'created_at' => now()
+        ];
+    
+        if ($request->hasFile('image')) {
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('uploads'), $imageName);
+            $updateData['image'] = '../uploads/'.$imageName;
+        }
+    
+        posts::where('id', $request->input('id'))->update($updateData);
+    
         return redirect('/profile');
     }
 
-    public static function edit($id) {
-        $event = DB::table('posts')
-            ->select('posts.*', 'users.*', 'posts.id as event_id')
-            ->leftJoin('users', 'users.id', '=', 'posts.business_id')
+    public static function editPage($id) {
+        $post = DB::table('posts')
+            ->select('posts.*', 'posts.id as post_id')
             ->where('posts.id', $id)
             ->first();
-        if ($event->business_id != session('user')->id) {
+        if ($post->business_id != session('business')->id) {
             return redirect('/profile');
         }
-        return view('owner.edit', ['event' => $event]);
+        return view('owner.edit', ['post' => $post]);
     }
-    public static function deleteEvent($id) {
+    public static function deletePost($id) {
         DB::table('posts')->where('id', $id)->update(['deleted' => 1]);
         return redirect('/profile');
     }

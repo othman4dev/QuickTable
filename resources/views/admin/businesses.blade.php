@@ -29,8 +29,8 @@
                     <td>{{ $business->business_type }}</td>
                     <td>
                         @if ($business->status == 0)
-                            <div class="status-not-active">
-                                <span style="color: #f1c40f">Not Active</span>
+                            <div class="status-not-active" style="width: fit-content">
+                                <span style="color: #f10f0f">Suspended</span>
                             </div>
                         @elseif ($business->status == 1)
                         <div class="status-active">
@@ -40,8 +40,12 @@
                     </td>
                     <td>{{ \Carbon\Carbon::parse($business->created_at)->format('d / m / Y') }}</td>
                     <td>
+                        @if ($business->status == 1)
                         <a href="/getBusiness/{{ $business->id }}" class="action-btn">Open <i class="bi bi-box-arrow-up-right"></i></a>
-                        <a href="/business/delete/{{ $business->id }}" class="action-btn">Delete <i class="bi bi-trash3-fill"></i></a>
+                        <a href="/deleteBusiness/{{ $business->id }}" class="action-btn">Suspend <i class="bi bi-ban"></i></a>
+                        @elseif ($business->status == 0)
+                        <a href="/allowBusiness/{{ $business->id }}" class="action-btn">Allow <i class="bi bi-check-all"></i></a>
+                        @endif
                     </td>
                 </tr>
                 @endforeach
