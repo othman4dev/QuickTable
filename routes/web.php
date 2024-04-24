@@ -76,6 +76,7 @@ Route::middleware(['role:User'])->group(function () {
     Route::get('/likePost/{id}', [PostsController::class, 'likePost'])->name('likePost');
     Route::post('/checkout', [StripeController::class, 'checkout']);
     Route::get('/checkout/success', [StripeController::class, 'success'])->name('checkout.success');
+    Route::get('/searchBusiness/{search}', [PostsController::class, 'searchBusiness'])->name('searchBusiness');
 });
 //GUEST ROLE
 Route::middleware(['norole'])->group(function () {

@@ -147,6 +147,59 @@ class PostsController extends Controller
     }
         echo $result;
     }
+    public static function searchBusiness($search) {
+        $businesses = DB::table('business')
+            ->select('business.*', 'users.*', 'business.id as businessId')
+            ->leftJoin('users', 'users.id', '=', 'business.owner_id')
+            ->where(function ($query) use ($search) {
+                $query->where('business.name', 'like', '%'.$search.'%')
+                      ->orWhere('business.description', 'like', '%'.$search.'%');
+            })
+            ->where('business.status', 1)
+            ->get();
+        $result = "";
+        if ($businesses->isEmpty()) {
+            $result = "<div class='result'>
+                <div class='no-result'>
+                <i class='bi bi-emoji-frown-fill'></i> No results found
+                </div>
+            </div>";
+        } else {
+        foreach ($businesses as $business) {
+            $result = $result . `
+            <div class="business-card" style="background-image: url('{{ $business->background_image }}');cursor:pointer" onclick="window.location.href = '/getBusiness/{{$business->businessId}}'">
+                <div class="business-card-overlay">
+
+                </div>
+                <div class="business-card-top">
+                    <div class="business-card-logo" style="background-image: url('{{ $business->pp }}')">
+                        
+                    </div>
+                    <div class="business-card-texts">
+                        <h1 class="business-card-title">{{ $business->name }}</h1>
+                        <p class="business-card-description">{{ $business->description }}</p>
+                    </div>
+                </div>
+                <div class="business-card-bottom">
+                    <div class="texts">
+                        <p class="business-card-description">{{ $business->firstname }} {{ $business->lastname }}</p>
+                        <p class="business-card-description">{{ $business->business_type }}</p>
+                    </div>
+                    <div class="texts">
+                        <p class="business-card-description">{{ $business->address }}</p>
+                        <p class="business-card-description">{{ $business->base_price }}$ / seat</p>
+                    </div>
+                    <div class="texts">
+                        <p class="business-card-description">{{ $business->email }}</p>
+                        <p class="business-card-description">{{ $business->phone }}</p>
+                    </div>
+                </div>
+            </div>
+            `;
+        }
+    }
+        echo $result;
+    }
     public static function getPost($id) {
         $post = DB::table('posts')
         ->select('posts.*', 'users.*','business.*', 'business.id as businessId' , 'posts.id as post_id', 'posts.description as post_description', 'users.pp as owner_pp')
