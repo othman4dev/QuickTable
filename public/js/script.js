@@ -815,3 +815,4 @@ function openMessage(message) {
     document.getElementById('messageModal').style.display = 'block';
     document.getElementById('protection').style.display = 'block';
 }
+let test = 'test';
