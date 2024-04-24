@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css" />
     <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/montserrat" rel="stylesheet">
     <title>QuickTable | Reserve  It Now</title>
 </head>
 <body>

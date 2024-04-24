@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="shortcut icon" href="{{asset('assets/table.svg')}}" type="image/x-icon">
     <link rel="stylesheet" href="{{asset('css/responsive.css')}}">
+    <link href="https://fonts.cdnfonts.com/css/montserrat" rel="stylesheet">
     <title>QuickTable | Welcome back</title>
 </head>
 <body class="login-body">
