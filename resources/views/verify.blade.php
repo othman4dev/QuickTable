@@ -27,7 +27,7 @@
             </div>
     </main>
     <div class="next-text">
-        <h1 class="login-fixed"><img src="assets/LOGO.svg" style="filter: invert(1);height:100px" alt=""></h1>
+        <h1 class="login-fixed">Quick<img src="assets/table.svg" class="table-icon" style="filter: invert(1);height:100px" alt="">able</h1>
         <h1 id="login-animation"></h1>
     </div>
 </section>
