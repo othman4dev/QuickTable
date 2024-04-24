@@ -49,13 +49,13 @@
             <div class="x-btn" onclick="dropdown(this)">
                 <i class="bi bi-x-lg"></i>
             </div>
-            <div class="drop-option" onclick="window.location.href = '/profile'">
-                <i class="bi bi-person" style="font-size: 20px;"></i>
-                <span>Profile</span>
+            <div class="drop-option" onclick="window.location.href = '/'">
+                <i class="bi bi-house" style="font-size: 20px;"></i>
+                <span>Home</span>
             </div>
-            <div class="drop-option" onclick="window.location.href = '/settings'">
-                <i class="bi bi-gear" style="font-size: 20px;"></i>
-                <span>Settings</span>
+            <div class="drop-option" onclick="window.location.href = '/myreservations'">
+                <i class="bi bi-ticket-detailed" style="font-size: 20px;"></i>
+                <span>Tickets</span>
             </div>
             <div class="drop-option" onclick="window.location.href='/logout'">
                 <i class="bi bi-box-arrow-right" style="font-size: 20px;"></i>
@@ -92,14 +92,6 @@
                 <i class="bi bi-chat-square-text" style="font-size: 17px;"></i>
                 <span>Contact</span>
             </div>
-            <div class="mobile-option">
-                <i class="bi bi-info-circle" style="font-size: 17px;" onclick="window.location.href='/help'"></i>
-                <span>Help</span>
-            </div>
-            <div class="mobile-option">
-                <i class="bi bi-gear" style="font-size: 17px;" onclick="window.location.href='/settings'"></i>
-                <span>Settings</span>
-            </div>
         </div>
     </div>
     <main class="index-main">
@@ -131,14 +123,6 @@
                 <div class="side-option -contact" onclick="window.location.href = '/contact'">
                     <i class="bi bi-chat-square-text" style="font-size: 25px;"></i>
                     <span>Contact</span>
-                </div>
-                <div class="side-option -help">
-                    <i class="bi bi-info-circle" style="font-size: 25px;" onclick="window.location.href='/help'"></i>
-                    <span>Help</span>
-                </div>
-                <div class="side-option -settings">
-                    <i class="bi bi-gear" style="font-size: 25px;" onclick="window.location.href='/settings'"></i>
-                    <span>Settings</span>
                 </div>
             </div>
         </section>

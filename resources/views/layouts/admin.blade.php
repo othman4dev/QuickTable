@@ -34,12 +34,12 @@
                 <i class="bi bi-x-lg"></i>
             </div>
             <div class="drop-option">
-                <i class="bi bi-person" style="font-size: 20px;"></i>
-                <span>Profile</span>
+                <i class="bi bi-bar-chart-line" style="font-size: 20px;"></i>
+                <span>Stats</span>
             </div>
             <div class="drop-option">
-                <i class="bi bi-gear" style="font-size: 20px;"></i>
-                <span>Settings</span>
+                <i class="bi bi-inbox" style="font-size:20px"></i>
+                <span>Inbox</span>
             </div>
             <div class="drop-option" onclick="window.location.href='/logout'">
                 <i class="bi bi-box-arrow-right" style="font-size: 20px;"></i>
@@ -79,10 +79,6 @@
                 <div class="side-option -contact" onclick="window.location.href = '/inbox'">
                     <i class="bi bi-chat-square-text" style="font-size: 25px;"></i>
                     <span>Contact</span>
-                </div>
-                <div class="side-option" onclick="window.location.href='/settings'">
-                    <i class="bi bi-gear" style="font-size: 25px;"></i>
-                    <span>Settings</span>
                 </div>
             </div>
         </section>

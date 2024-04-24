@@ -40,13 +40,13 @@
             <div class="x-btn" onclick="dropdown(this)">
                 <i class="bi bi-x-lg"></i>
             </div>
-            <div class="drop-option" onclick="window.location.href = '/add'">
+            <div class="drop-option" onclick="window.location.href = '/profile'">
                 <i class="bi bi-person" style="font-size: 20px;"></i>
                 <span>Profile</span>
             </div>
-            <div class="drop-option" onclick="window.location.href = '/settings'">
-                <i class="bi bi-gear" style="font-size: 20px;"></i>
-                <span>Settings</span>
+            <div class="drop-option" onclick="window.location.href = '/money'">
+                <i class="bi bi-cash-coin" style="font-size: 20px;"></i>
+                <span>Money</span>
             </div>
             <div class="drop-option" onclick="window.location.href='/logout'">
                 <i class="bi bi-box-arrow-right" style="font-size: 20px;"></i>
@@ -79,10 +79,6 @@
                 <div class="side-option" onclick="window.location.href = '/profile'">
                     <i class="bi bi-person" style="font-size: 25px;"></i>
                     <span>Profile</span>
-                </div>
-                <div class="side-option" onclick="window.location.href = '/settings'">
-                    <i class="bi bi-gear" style="font-size: 25px;"></i>
-                    <span>Settings</span>
                 </div>
             </div>
         </section>
