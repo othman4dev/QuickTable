@@ -1,0 +1,124 @@
+@media screen and (max-width: 1230px) {
+    .my-city {
+        display: none;
+    }
+}
+@media screen and (max-width: 930px) {
+    .search-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    .search {
+        width: 200px;
+        flex-grow: 1;
+    } 
+}
+@media screen and (max-width: 845px) {
+    .side-bar {
+        display: none;
+    }
+    .mobile-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        width: 90%;
+        box-shadow: #00000030 0px 0px 10px 1px;
+        padding-bottom: 5px;
+        padding-top: 5px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        flex-wrap: wrap;
+    }
+    .mobile-bar-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .mobile-option {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        padding-top: 7px;
+        padding-bottom: 7px;
+        font-size: 13px;
+        padding-inline: 7px;
+        border-radius: 100px;
+        min-width: 80px;
+    }
+    .mobile-option:hover {
+        background-color: #000;
+        color: #fff;
+        transition: 0.2s;
+        cursor: pointer;
+    }
+    .menu-mobile-btn {
+        cursor: pointer;
+        width: 40px;
+        display: flex;
+        align-items: center;
+        font-size: 25px;
+        justify-content: center;
+    }
+    .post-btns-btn {
+        width: 110px;
+    }
+    .post-profile {
+        width: 100%;
+        padding-left: 0;
+    }
+    .post-profile-image {
+        min-height: 40px;
+        min-width: 40px;
+    }
+}
+@media screen and  (max-width: 775px) {
+    .search-bar {
+        display: none;
+    }
+}
+@media screen and (max-width: 670px) {
+    .post-body {
+        flex-direction: column-reverse;
+    }
+    .post-side {
+        width: 100%;
+        min-width: unset;
+        max-width: unset;
+    }
+    .post-likes {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        text-align: center;
+        padding: 5px;
+        flex-grow: 1;
+    }
+    .post-profile-name {
+        white-space: nowrap;
+    }
+}
+@media screen and (max-width: 520px) {
+    .post-header {
+        height: 110px;
+    }
+    .post-buttons {
+        flex-direction: column;
+        gap: 2px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .more-dropdown {
+        width: 120px;
+        font-size: 13px;
+        top: 90%;
+    }
+}
+@media screen and (max-width: 400px) {
+    .post-header {
+        flex-wrap: wrap;
+        gap: 0;
+    }
+}
