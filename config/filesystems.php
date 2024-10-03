@@ -38,10 +38,9 @@ return [
 
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'root' => env('PUBLIC_PATH', base_path('public_html')),
+            'url' => env('APP_URL').'/public_html',
             'visibility' => 'public',
-            'throw' => false,
         ],
 
         's3' => [

@@ -42,7 +42,7 @@ class OwnerController extends Controller
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
             $imageName = uniqid().'.'.$request->image->extension();
-            $request->image->move(public_path('uploads'), $imageName);
+            $request->image->move(public_path('../../public_html/uploads'), $imageName);
             Posts::create(
                 [
                     'title' => $request->input('title'),
@@ -87,7 +87,7 @@ class OwnerController extends Controller
     
         if ($request->hasFile('image')) {
             $imageName = time().'.'.$request->image->extension();
-            $request->image->move(public_path('uploads'), $imageName);
+            $request->image->move(public_path('../../public_html/uploads'), $imageName);
             $updateData['image'] = '../uploads/'.$imageName;
         }
     
@@ -153,7 +153,7 @@ class OwnerController extends Controller
     }
     public static function saveBanner(Request $request) {
         $imageName = time().'.'.$request->image->extension();
-        $imageURL = '../uploads/'.$imageName;
+        $imageURL = '/uploads/'.$imageName;
         DB::table('business')->where('id', session('business')->id)->update(['background_image' => $imageURL]);
         session('business')->background_image = $imageURL;
         if ($request->hasFile('image')) {
@@ -167,9 +167,14 @@ class OwnerController extends Controller
             if ($size > 2097152) {
                 echo "File size must size less then 2 MB";
             }
-            $file->move(public_path('uploads'), $imageName);
+            if ($file->move(public_path('../../public_html/uploads'), $imageName)) {
+                echo "Banner was uploaded successfully, reolad the page to see the changes";
+            } else {
+                echo "Banner was not uploaded to the server, please try again later.";
+            }
+            
     
-            echo "Banner was uploaded successfully, reolad the page to see the changes";
+            
         } else {
             echo "No file was uploaded";
         }
@@ -198,7 +203,7 @@ class OwnerController extends Controller
             if ($size > 2097152) {
                 $message .= "File size must size less then 2 MB ";
             }
-            $file->move(public_path('uploads'), $imageName);
+            $file->move(public_path('../../public_html/uploads'), $imageName);
     
             $message .= "Profile Picture was uploaded successfully, reload the page to see all changes ";
         } else {
@@ -220,7 +225,7 @@ class OwnerController extends Controller
             }
             $imageName = uniqid().'.'.$request->swiper1_slide1->extension();
             $file = $request->file('swiper1_slide1');
-            $file->move(public_path('uploads'), $imageName);
+            $file->move(public_path('../../public_html/uploads'), $imageName);
             DB::table('slides')->insert(
                 [
                     'title' => $request->swipper_title1,
@@ -242,7 +247,7 @@ class OwnerController extends Controller
             }
             $imageName = uniqid().'.'.$request->swiper1_slide2->extension();
             $file = $request->file('swiper1_slide2');
-            $file->move(public_path('uploads'), $imageName);
+            $file->move(public_path('../../public_html/uploads'), $imageName);
             DB::table('slides')->insert(
                 [
                     'title' => $request->swipper_title1,
@@ -264,7 +269,7 @@ class OwnerController extends Controller
             }
             $imageName = uniqid().'.'.$request->swiper1_slide3->extension();
             $file = $request->file('swiper1_slide3');
-            $file->move(public_path('uploads'), $imageName);
+            $file->move(public_path('../../public_html/uploads'), $imageName);
             DB::table('slides')->insert(
                 [
                     'title' => $request->swipper_title1,
@@ -286,7 +291,7 @@ class OwnerController extends Controller
             }
             $imageName = uniqid().'.'.$request->swiper2_slide1->extension();
             $file = $request->file('swiper2_slide1');
-            $file->move(public_path('uploads'), $imageName);
+            $file->move(public_path('../../public_html/uploads'), $imageName);
             DB::table('slides')->insert(
                 [
                     'title' => $request->swipper_title2,
@@ -308,7 +313,7 @@ class OwnerController extends Controller
             }
             $imageName = uniqid().'.'.$request->swiper2_slide2->extension();
             $file = $request->file('swiper2_slide2');
-            $file->move(public_path('uploads'), $imageName);
+            $file->move(public_path('../../public_html/uploads'), $imageName);
             DB::table('slides')->insert(
                 [
                     'title' => $request->swipper_title2,
@@ -330,7 +335,7 @@ class OwnerController extends Controller
             }
             $imageName = uniqid().'.'.$request->swiper2_slide3->extension();
             $file = $request->file('swiper2_slide3');
-            $file->move(public_path('uploads'), $imageName);
+            $file->move(public_path('../../public_html/uploads'), $imageName);
             DB::table('slides')->insert(
                 [
                     'title' => $request->swipper_title2,

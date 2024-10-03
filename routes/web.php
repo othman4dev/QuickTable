@@ -132,6 +132,11 @@ Route::get('/', function () {
         return view('user.index', ['posts' => $posts , 'businesses' => $businesses]);
     }
 });
+
+Route::get('/public', function () {
+    return redirect('/login');
+});
+
 Route::get('/404', function () {
     return view('404');
 });
